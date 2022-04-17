@@ -1,7 +1,8 @@
-#if canImport(UIKit) && !os(watchOS)
+#if !os(watchOS)
 import CocoaAliases
 
 open class CustomCocoaCollectionView: CocoaCollectionView, CustomCocoaViewProtocol {
+  #if canImport(UIKit)
   public override init(
     frame: CGRect,
     collectionViewLayout layout: CocoaCollectionViewLayout
@@ -9,6 +10,12 @@ open class CustomCocoaCollectionView: CocoaCollectionView, CustomCocoaViewProtoc
     super.init(frame: frame, collectionViewLayout: layout)
     self._init()
   }
+  #else
+  public override init(frame: CGRect) {
+    super.init(frame: frame)
+    self._init()
+  }
+  #endif
   
   public required init?(coder: NSCoder) {
     super.init(coder: coder)

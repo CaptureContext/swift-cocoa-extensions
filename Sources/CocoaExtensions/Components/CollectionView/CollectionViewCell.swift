@@ -1,7 +1,9 @@
 #if canImport(UIKit) && !os(watchOS)
 import CocoaAliases
 
-public final class CollectionViewCell<Content: CocoaView>: CustomCollectionViewCell {
+public final class CollectionViewCell<
+  Content: CocoaView
+>: CustomCollectionViewCell {
   @available(*, deprecated, message: "Use cell.content instead")
   public override var contentView: UIView { super.contentView }
   

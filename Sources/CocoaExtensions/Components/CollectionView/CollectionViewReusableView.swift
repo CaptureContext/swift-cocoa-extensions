@@ -1,7 +1,9 @@
 #if canImport(UIKit) && !os(watchOS)
 import CocoaAliases
 
-public class CollectionReusableView<Content: CocoaView>: CustomCollectionReusableView {
+public class CollectionReusableView<
+  Content: CocoaView
+>: CustomCollectionReusableView {
   public let content: Content = .init()
   
   public override func _init() {

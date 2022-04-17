@@ -1,7 +1,7 @@
 #if !os(watchOS)
 import CocoaAliases
 
-open class CustomCollectionReusableView: CocoaCollectionReusableView, CustomCocoaViewProtocol {
+open class CustomTableViewCell: CocoaTableViewCell, CustomCocoaViewProtocol {  
   public override init(frame: CGRect) {
     super.init(frame: frame)
     self._init()
