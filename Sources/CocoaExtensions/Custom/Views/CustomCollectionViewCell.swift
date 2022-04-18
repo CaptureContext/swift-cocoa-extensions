@@ -2,6 +2,7 @@
 import CocoaAliases
 import FunctionalClosures
 
+#if canImport(AppKit)
 open class CustomCollectionViewCell:
   CocoaCollectionViewCell,
   CustomCocoaViewControllerProtocol
@@ -89,4 +90,22 @@ open class CustomCollectionViewCell:
   /// Only for `override` purposes, do not call directly
   open func _init() {}
 }
+#else
+open class CustomCollectionViewCell:
+  CocoaCollectionViewCell,
+  CustomCocoaViewProtocol
+{
+  public override init(frame: CGRect) {
+    super.init(frame: frame)
+    self._init()
+  }
+  
+  public required init?(coder: NSCoder) {
+    super.init(coder: coder)
+    self._init()
+  }
+  
+  open func _init() {}
+}
+#endif
 #endif
