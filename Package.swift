@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
   name: "swift-cocoa-extensions",
   platforms: [
-    .macOS(.v10_15),
+    .macOS(.v11),
     .iOS(.v13),
     .tvOS(.v13),
     .watchOS(.v6)
@@ -32,6 +32,11 @@ let package = Package(
       url: "https://github.com/capturecontext/swift-foundation-extensions.git",
       .branch("main")
     ),
+    .package(
+      name: "swift-identified-collections",
+      url: "https://github.com/pointfreeco/swift-identified-collections.git",
+      .upToNextMinor(from: "0.3.2")
+    ),
   ],
   targets: [
     .target(
@@ -49,6 +54,10 @@ let package = Package(
           name: "FoundationExtensions",
           package: "swift-foundation-extensions"
         ),
+        .product(
+          name: "IdentifiedCollections",
+          package: "swift-identified-collections"
+        )
       ]
     ),
   ]

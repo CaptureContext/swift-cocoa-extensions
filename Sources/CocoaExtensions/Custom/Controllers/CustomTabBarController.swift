@@ -1,5 +1,5 @@
 #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
-import UIKit
+import CocoaAliases
 import DeclarativeConfiguration
 
 extension CustomTabBarController: NavigationControllerDynamicOverridable {}
