@@ -2,12 +2,7 @@
 import CocoaAliases
 import FunctionalClosures
 
-public protocol CustomWindowProvider: NSWindowController {
-  associatedtype Window: CocoaWindow
-  var managedWindow: Window { get set }
-}
-
-open class CustomWindowController:
+open class CustomCocoaWindowController:
   NSWindowController,
   CustomCocoaWindowControllerProtocol
 {

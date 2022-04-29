@@ -1,9 +1,13 @@
 #if canImport(AppKit)
 import CocoaAliases
 
+/// The protocol allows to track when the window is loaded using @CustomWindow  propertyWrapper
+public protocol CustomLoadableWindow: CocoaView {
+  func didLoad(to controller: NSWindowController)
+}
+
 @propertyWrapper
 public struct CustomWindow<Window: CocoaWindow>: CustomReflectable {
-  
   public static subscript<Controller: NSWindowController>(
     _enclosingInstance controller: Controller,
     wrapped wrappedKeyPath: ReferenceWritableKeyPath<Controller, Window>,
@@ -50,10 +54,13 @@ public struct CustomWindow<Window: CocoaWindow>: CustomReflectable {
   }
   
   public func load(
-    _ window: Window = .init(),
+    _ managedWindow: Window = .init(),
     to controller: NSWindowController
   ) {
-    controller.window = window
+    controller.window = managedWindow
+    managedWindow.as(CustomLoadableWindow.self).map { window in
+      window.didLoad(to: controller)
+    }
   }
 }
 

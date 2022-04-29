@@ -52,20 +52,6 @@ public protocol CustomLoadableView: CocoaView {
 /// ```
 @propertyWrapper
 public struct CustomView<ContentView: CocoaView>: CustomReflectable {
-  @Handler<ContentView>
-  public var onViewDidLoad
-  
-  public var customMirror: Mirror {
-    Mirror(self, children: [("loadView", { load(to: $0) })])
-  }
-
-  public init() {}
-
-  @available(*, unavailable, message: "@CustomView can only be applied to classes")
-  public var wrappedValue: ContentView {
-    get { fatalError() }
-    set { fatalError() }
-  }
 
   public static subscript<Controller: CocoaViewController>(
     _enclosingInstance controller: Controller,
@@ -89,20 +75,27 @@ public struct CustomView<ContentView: CocoaView>: CustomReflectable {
       controller[keyPath: storageKeyPath].load(newValue, to: controller)
     }
   }
+  
+  public var customMirror: Mirror {
+    Mirror(self, children: [("loadView", { load(to: $0) })])
+  }
+  
+  public init() {}
+  
+  @available(*, unavailable, message: "@CustomView can only be applied to classes")
+  public var wrappedValue: ContentView {
+    get { fatalError() }
+    set { fatalError() }
+  }
 
   public func load(
     _ contentView: ContentView = .init(),
-    to controller: CocoaViewController,
-    onWillSet: (ContentView) -> Void = { _ in },
-    onDidSet: (ContentView) -> Void = { _ in }
+    to controller: CocoaViewController
   ) {
-    onWillSet(contentView)
     controller.view = contentView
-    onDidSet(contentView)
     contentView.as(CustomLoadableView.self).map { view in
       view.didLoad(to: controller)
     }
-    _onViewDidLoad(contentView)
   }
 }
 
