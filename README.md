@@ -4,7 +4,7 @@
 
 Standard extensions for Cocoa
 
-> NOTE: The package is early beta
+NOTE: The package is in beta (feel free suggest your improvements [here](https://github.com/capturecontext/swift-cocoa-extensions/discussions/1))
 
 
 
