@@ -43,6 +43,13 @@ open class UIHostingView<RootView: View>: CustomCocoaView {
     controller.view.frame = bounds
     controller.view.setNeedsLayout()
   }
+  
+  open override func didMoveToSuperview() {
+    super.didMoveToSuperview()
+    nearestViewController.map { parent in
+      controller.didMove(toParent: parent)
+    }
+  }
 }
 
 extension UIHostingView {
