@@ -2,7 +2,7 @@
 import CocoaAliases
 import FunctionalClosures
 
-#if canImport(AppKit)
+#if os(macOS)
 open class CustomCocoaWindow: CocoaWindow, CustomCocoaWindowProtocol {
   @Handler<Void>
   public var onClose

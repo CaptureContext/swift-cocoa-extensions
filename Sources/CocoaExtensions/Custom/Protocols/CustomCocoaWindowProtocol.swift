@@ -2,7 +2,7 @@
 import CocoaAliases
 import FunctionalClosures
 
-#if canImport(AppKit)
+#if os(macOS)
 public protocol CustomCocoaWindowProtocol: CustomNSObjectProtocol {
   var onClose: Handler<Void>.Container { get set }
 }

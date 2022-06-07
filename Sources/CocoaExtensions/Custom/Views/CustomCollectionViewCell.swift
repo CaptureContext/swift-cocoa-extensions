@@ -2,7 +2,7 @@
 import CocoaAliases
 import FunctionalClosures
 
-#if canImport(AppKit)
+#if os(macOS)
 open class CustomCollectionViewCell:
   CocoaCollectionViewCell,
   CustomCocoaViewControllerProtocol

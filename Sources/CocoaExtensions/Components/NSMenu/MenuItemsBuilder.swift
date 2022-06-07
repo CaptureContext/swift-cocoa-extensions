@@ -1,4 +1,4 @@
-#if canImport(AppKit)
+#if os(macOS)
 import CocoaAliases
 
 public protocol NSMenuAttachableItem {

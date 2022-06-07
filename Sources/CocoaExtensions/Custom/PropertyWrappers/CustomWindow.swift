@@ -1,4 +1,4 @@
-#if canImport(AppKit)
+#if os(macOS)
 import CocoaAliases
 
 /// The protocol allows to track when the window is loaded using @CustomWindow  propertyWrapper

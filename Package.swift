@@ -20,7 +20,7 @@ let package = Package(
     .package(
       name: "cocoa-aliases",
       url: "https://github.com/capturecontext/cocoa-aliases.git",
-      .upToNextMajor(from: "2.0.4")
+      .upToNextMajor(from: "2.0.5")
     ),
     .package(
       name: "swift-declarative-configuration",
