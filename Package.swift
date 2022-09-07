@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.6
 
 import PackageDescription
 
@@ -18,22 +18,18 @@ let package = Package(
   ],
   dependencies: [
     .package(
-      name: "cocoa-aliases",
       url: "https://github.com/capturecontext/cocoa-aliases.git",
       .upToNextMajor(from: "2.0.5")
     ),
     .package(
-      name: "swift-declarative-configuration",
       url: "https://github.com/capturecontext/swift-declarative-configuration.git",
       .upToNextMinor(from: "0.3.0")
     ),
     .package(
-      name: "swift-foundation-extensions",
       url: "https://github.com/capturecontext/swift-foundation-extensions.git",
-      .branch("main")
+      .upToNextMinor(from: "0.1.0")
     ),
     .package(
-      name: "swift-identified-collections",
       url: "https://github.com/pointfreeco/swift-identified-collections.git",
       .upToNextMinor(from: "0.3.2")
     ),
