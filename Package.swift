@@ -23,15 +23,15 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/capturecontext/swift-declarative-configuration.git",
-      .upToNextMinor(from: "0.3.0")
+      .upToNextMinor(from: "0.3.2")
     ),
     .package(
       url: "https://github.com/capturecontext/swift-foundation-extensions.git",
-      .upToNextMinor(from: "0.1.0")
+      .upToNextMinor(from: "0.1.2")
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-identified-collections.git",
-      .upToNextMinor(from: "0.3.2")
+      .upToNextMinor(from: "0.5.0")
     ),
   ],
   targets: [
