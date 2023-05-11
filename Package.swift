@@ -31,7 +31,7 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-identified-collections.git",
-      .upToNextMinor(from: "0.5.0")
+      .upToNextMinor(from: "0.7.0")
     ),
   ],
   targets: [
