@@ -44,4 +44,41 @@ extension NSMenuItem {
     setAssociatedObject(handler, forKey: "handler")
   }
 }
+
+extension NSMenuItem.KeyEquivalent: ExpressibleByStringLiteral {
+  public init(stringLiteral value: String) {
+    guard let shortcut = Self.init(value)
+    else { preconditionFailure() }
+    self = shortcut
+  }
+
+  public func modifiers(
+    _ modifiers: NSEvent.ModifierFlags...
+  ) -> NSMenuItem.KeyEquivalent {
+    return self.modifiers(modifiers.merge())
+  }
+
+  public func modifiers(
+    _ modifiers: NSEvent.ModifierFlags? = nil
+  ) -> NSMenuItem.KeyEquivalent {
+    guard let shortcut = Self.init(value, modifiers: modifiers)
+    else { preconditionFailure() }
+    return shortcut
+  }
+}
+
+extension Array where Element == NSEvent.ModifierFlags {
+  fileprivate func merge() -> NSEvent.ModifierFlags? {
+    guard var flag = first else { return nil }
+    dropFirst().forEach { flag.insert($0) }
+    return flag
+  }
+}
+
+extension NSEvent.ModifierFlags {
+  public static func +(_ lhs: Self, rhs: String) -> NSMenuItem.KeyEquivalent? {
+    return .init(rhs, modifiers: lhs)
+  }
+}
+
 #endif
