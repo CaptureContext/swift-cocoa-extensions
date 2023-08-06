@@ -5,3 +5,4 @@
 #endif
 
 @_exported import FoundationExtensions
+@_exported import DeclarativeConfiguration
