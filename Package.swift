@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.8
 
 import PackageDescription
 
@@ -27,11 +27,11 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/capturecontext/swift-foundation-extensions.git",
-      .upToNextMinor(from: "0.1.2")
+      .upToNextMinor(from: "0.2.0")
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-identified-collections.git",
-      .upToNextMinor(from: "0.7.0")
+      .upToNextMajor(from: "1.0.0")
     ),
   ],
   targets: [
