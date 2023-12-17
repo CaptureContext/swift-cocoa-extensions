@@ -1,4 +1,4 @@
-// swift-tools-version:5.8
+// swift-tools-version: 5.9
 
 import PackageDescription
 
@@ -23,16 +23,16 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/capturecontext/swift-declarative-configuration.git",
-      .upToNextMinor(from: "0.3.2")
+      .upToNextMinor(from: "0.3.3")
     ),
     .package(
       url: "https://github.com/capturecontext/swift-foundation-extensions.git",
-      .upToNextMinor(from: "0.2.0")
+      .upToNextMinor(from: "0.4.0")
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-identified-collections.git",
       .upToNextMajor(from: "1.0.0")
-    ),
+    )
   ],
   targets: [
     .target(
@@ -55,6 +55,6 @@ let package = Package(
           package: "swift-identified-collections"
         )
       ]
-    ),
+    )
   ]
 )
