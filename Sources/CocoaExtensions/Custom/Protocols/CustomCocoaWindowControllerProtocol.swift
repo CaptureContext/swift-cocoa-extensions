@@ -3,10 +3,10 @@ import CocoaAliases
 import FunctionalClosures
 
 public protocol CustomCocoaWindowControllerProtocol:
-  NSWindowController,
-  CustomNSObjectProtocol
+	NSWindowController,
+	CustomNSObjectProtocol
 {
-  var onWindowWillLoad: Handler<Void>.Container { get set }
-  var onWindowDidLoad: Handler<Void>.Container { get set }
+	var onWindowWillLoad: Handler<Void>.Container { get set }
+	var onWindowDidLoad: Handler<Void>.Container { get set }
 }
 #endif

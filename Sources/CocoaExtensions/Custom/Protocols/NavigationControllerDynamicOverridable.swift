@@ -1,10 +1,10 @@
-#if os(iOS)
+#if canImport(UIKit) && !os(watchOS)
 import FunctionalClosures
 
 public protocol NavigationControllerDynamicOverridable {
-  var overrideNavigationController: OptionalDataSource<
-    Void,
-    UINavigationController?
-  >.Container { get set }
+	var overrideNavigationController: OptionalDataSource<
+		Void,
+		UINavigationController?
+	>.Container { get set }
 }
 #endif
