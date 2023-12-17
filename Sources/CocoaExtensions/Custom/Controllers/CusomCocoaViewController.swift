@@ -77,12 +77,7 @@ open class CustomCocoaViewController:
 		super.viewDidLayoutSubviews()
 		_onViewDidLayout()
 	}
-	
-	open override func loadView() {
-		guard !tryLoadCustomContentView() else { return }
-		super.loadView()
-	}
-	
+
 	open override func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
 		super.dismiss(animated: animated, completion: completion)
 		_onDismiss()
@@ -168,11 +163,6 @@ open class CustomCocoaViewController:
 	open override func viewDidLayout() {
 		super.viewDidLayout()
 		_onViewDidLayout()
-	}
-	
-	open override func loadView() {
-		guard !tryLoadCustomContentView() else { return }
-		super.loadView()
 	}
 	
 	open override func dismiss(_ sender: Any?) {

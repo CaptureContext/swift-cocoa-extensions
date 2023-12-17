@@ -24,12 +24,6 @@ open class CustomCocoaWindowController:
 
 	open func _init() {}
 
-	open override func loadWindow() {
-		if !tryLoadCustomWindow() {
-			super.loadWindow()
-		}
-	}
-
 	open override func windowWillLoad() {
 		super.windowWillLoad()
 		_onWindowWillLoad()
