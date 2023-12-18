@@ -4,6 +4,7 @@ import SwiftSyntaxMacros
 @main
 struct FoundationExtensionsPlugin: CompilerPlugin {
   let providingMacros: [Macro.Type] = [
-    CustomViewMacro.self
+    CustomViewMacro.self,
+		CustomWindowMacro.self
   ]
 }
