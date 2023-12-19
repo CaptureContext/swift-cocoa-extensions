@@ -11,9 +11,9 @@ public macro CustomView() = #externalMacro(
 
 #if os(macOS)
 @attached(accessor)
-@attached(peer, names: named(loadView))
+@attached(peer, names: named(loadWindow))
 public macro CustomWindow() = #externalMacro(
 	module: "CocoaExtensionsMacros",
-	type: "CustomViewMacro"
+	type: "CustomWindowMacro"
 )
 #endif
