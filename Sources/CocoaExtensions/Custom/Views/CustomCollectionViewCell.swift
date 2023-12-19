@@ -66,11 +66,6 @@ open class CustomCollectionViewCell:
 		_onViewDidLayout()
 	}
 
-	open override func loadView() {
-		guard !tryLoadCustomContentView() else { return }
-		super.loadView()
-	}
-
 	open override func dismiss(_ sender: Any?) {
 		super.dismiss(sender)
 		self._onDismiss()
