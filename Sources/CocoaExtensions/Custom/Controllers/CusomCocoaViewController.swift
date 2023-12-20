@@ -40,7 +40,12 @@ open class CustomCocoaViewController:
 	
 	@Handler<Void>
 	public var onViewDidLayout
-	
+
+	open override func loadView() {
+		guard !tryLoadCustomContentView() else { return }
+		super.loadView()
+	}
+
 	open override func viewDidLoad() {
 		super.viewDidLoad()
 		_onViewDidLoad()
@@ -127,7 +132,12 @@ open class CustomCocoaViewController:
 	
 	@Handler<Void>
 	public var onViewDidLayout
-	
+
+	open override func loadView() {
+		guard !tryLoadCustomContentView() else { return }
+		super.loadView()
+	}
+
 	open override func viewDidLoad() {
 		super.viewDidLoad()
 		_onViewDidLoad()

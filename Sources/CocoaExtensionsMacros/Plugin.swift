@@ -2,7 +2,7 @@ import SwiftCompilerPlugin
 import SwiftSyntaxMacros
 
 @main
-struct CocoaExtensionsPlugin: CompilerPlugin {
+struct MacrosPlugin: CompilerPlugin {
 	let providingMacros: [Macro.Type] = [
 		CustomViewMacro.self,
 		CustomWindowMacro.self

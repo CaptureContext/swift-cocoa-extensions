@@ -9,4 +9,14 @@ final class CocoaExtensionsTests: XCTestCase {
 			var customView: CustomCocoaView!
 		}
 	}
+
+	#if os(macOS)
+	func testCustomWindow() {
+		// Should compile
+		class WindowController: CustomCocoaWindowController {
+			@CustomWindow
+			var managedWindow: CustomCocoaWindow!
+		}
+	}
+	#endif
 }

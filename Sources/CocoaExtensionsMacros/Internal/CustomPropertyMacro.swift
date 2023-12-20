@@ -39,12 +39,12 @@ struct ProperyInfo {
 	}
 }
 
-protocol CustomPropertyMacro: AccessorMacro, PeerMacro {
+public protocol CustomPropertyMacro: AccessorMacro, PeerMacro {
 	static var macroName: String { get }
 }
 
 extension CustomPropertyMacro {
-	static var macroName: String {
+	public static var macroName: String {
 		let typeName = String(describing: self)
 		return typeName.hasSuffix("Macro")
 		? String(typeName.dropLast("Macro".count))
