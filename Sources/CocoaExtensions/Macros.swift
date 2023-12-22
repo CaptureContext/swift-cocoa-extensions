@@ -137,8 +137,9 @@ public struct CustomView<ContentView: CocoaView>: CustomReflectable {
 extension CocoaViewController {
 	/// Loads `@CustomView var contentView` to the controller
 	/// - Returns: `true` if loading succeed, `false` if failed
+	@_spi(Internals)
 	@discardableResult
-	func tryLoadCustomContentView() -> Bool {
+	public func tryLoadCustomContentView() -> Bool {
 		let selfMirror = Mirror(reflecting: self)
 		guard
 			let _contentView = selfMirror.children
@@ -228,8 +229,9 @@ public struct CustomWindow<Window: CocoaWindow>: CustomReflectable {
 }
 
 extension NSWindowController {
+	@_spi(Internals)
 	@discardableResult
-	func tryLoadCustomWindow() -> Bool {
+	public func tryLoadCustomWindow() -> Bool {
 		guard
 			let _managedWindow = Mirror(reflecting: self).children.first(where: { $0.label == "_managedWindow" })?.value,
 			let loadWindow = Mirror(reflecting: _managedWindow).children.first(where: { $0.label == "loadWindow" })?.value,

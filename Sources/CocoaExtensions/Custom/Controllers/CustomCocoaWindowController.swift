@@ -12,22 +12,26 @@ open class CustomCocoaWindowController:
 	@Handler<Void>
 	public var onWindowDidLoad
 
+	/// Use `override _init` instead of overriding this initializer
 	public override init(window: CocoaWindow?) {
 		super.init(window: window)
 		self._init()
 	}
 
+	/// Use `override _init` instead of overriding this initializer
 	public required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		self._init()
 	}
 
-	open func _init() {}
-
+	#if !canImport(CocoaExtensionsMacros)
 	open override func loadWindow() {
 		guard !tryLoadCustomWindow() else { return }
 		super.loadWindow()
 	}
+	#endif
+
+	open func _init() {}
 
 	open override func windowWillLoad() {
 		super.windowWillLoad()

@@ -83,11 +83,13 @@ open class CustomTabBarController:
 		_onDismiss()
 	}
 	
+	/// Use `override _init` instead of overriding this initializer
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		self._init()
 	}
 	
+	/// Use `override _init` instead of overriding this initializer
 	public required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		self._init()

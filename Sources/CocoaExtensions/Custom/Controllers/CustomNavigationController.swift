@@ -83,21 +83,25 @@ open class CustomNavigationController:
 		_onDismiss()
 	}
 	
+	/// Use `override _init` instead of overriding this initializer
 	public override init(rootViewController: UIViewController) {
 		super.init(rootViewController: rootViewController)
 		self._init()
 	}
 	
+	/// Use `override _init` instead of overriding this initializer
 	public override init(navigationBarClass: AnyClass?, toolbarClass: AnyClass?) {
 		super.init(navigationBarClass: navigationBarClass, toolbarClass: toolbarClass)
 		self._init()
 	}
 	
+	/// Use `override _init` instead of overriding this initializer
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		self._init()
 	}
 	
+	/// Use `override _init` instead of overriding this initializer
 	public required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		self._init()
