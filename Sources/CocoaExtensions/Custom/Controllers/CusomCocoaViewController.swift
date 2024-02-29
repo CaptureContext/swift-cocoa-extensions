@@ -17,37 +17,34 @@ open class CustomCocoaViewController:
 		_overrideNavigationController() ?? super.navigationController
 	}
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onDismiss
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLoad
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillAppear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidAppear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillDisappear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidDisappear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillLayout
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLayout
 
-	#if !canImport(CocoaExtensionsMacros)
 	open override func loadView() {
 		guard !tryLoadCustomContentView() else { return }
 		super.loadView()
 	}
-	#endif
-
 
 	open override func viewDidLoad() {
 		super.viewDidLoad()
@@ -113,36 +110,34 @@ open class CustomCocoaViewController:
 {
 	private(set) open var isVisible = false
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onDismiss
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLoad
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillAppear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidAppear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillDisappear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidDisappear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillLayout
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLayout
 
-	#if !canImport(CocoaExtensionsMacros)
 	open override func loadView() {
 		guard !tryLoadCustomContentView() else { return }
 		super.loadView()
 	}
-	#endif
 
 	open override func viewDidLoad() {
 		super.viewDidLoad()

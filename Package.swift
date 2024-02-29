@@ -7,6 +7,7 @@ let package = Package(
 	name: "swift-cocoa-extensions",
 	platforms: [
 		.macOS(.v11),
+		.macCatalyst(.v13),
 		.iOS(.v13),
 		.tvOS(.v13),
 		.watchOS(.v6)
@@ -15,6 +16,10 @@ let package = Package(
 		.library(
 			name: "CocoaExtensions",
 			targets: ["CocoaExtensions"]
+		),
+		.library(
+			name: "CocoaExtensionsMacros",
+			targets: ["CocoaExtensionsMacros"]
 		),
 	],
 	dependencies: [
@@ -28,7 +33,7 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-foundation-extensions.git",
-			.upToNextMinor(from: "0.4.0")
+			branch: "main"
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-identified-collections.git",
@@ -47,7 +52,6 @@ let package = Package(
 		.target(
 			name: "CocoaExtensions",
 			dependencies: [
-				.target(name: "CocoaExtensionsMacros"),
 				.product(
 					name: "CocoaAliases",
 					package: "cocoa-aliases"
@@ -66,8 +70,19 @@ let package = Package(
 				)
 			]
 		),
-		.macro(
+		.target(
 			name: "CocoaExtensionsMacros",
+			dependencies: [
+				.target(name: "CocoaExtensions"),
+				.target(name: "CocoaExtensionsMacrosPlugin"),
+				.product(
+					name: "FoundationExtensionsMacros",
+					package: "swift-foundation-extensions"
+				),
+			]
+		),
+		.macro(
+			name: "CocoaExtensionsMacrosPlugin",
 			dependencies: [
 				.product(
 					name: "MacroToolkit",
@@ -84,7 +99,13 @@ let package = Package(
 		.testTarget(
 			name: "CocoaExtensionsMacrosTests",
 			dependencies: [
-				.target(name: "CocoaExtensionsMacros"),
+				.target(name: "CocoaExtensionsMacros")
+			]
+		),
+		.testTarget(
+			name: "CocoaExtensionsMacrosPluginTests",
+			dependencies: [
+				.target(name: "CocoaExtensionsMacrosPlugin"),
 				.product(name: "MacroTesting", package: "swift-macro-testing"),
 			]
 		),

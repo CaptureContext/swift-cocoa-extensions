@@ -6,10 +6,10 @@ open class CustomCocoaWindowController:
 	NSWindowController,
 	CustomCocoaWindowControllerProtocol
 {
-	@Handler<Void>
+	@Handler1<Void>
 	public var onWindowWillLoad
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onWindowDidLoad
 
 	/// Use `override _init` instead of overriding this initializer
@@ -24,12 +24,10 @@ open class CustomCocoaWindowController:
 		self._init()
 	}
 
-	#if !canImport(CocoaExtensionsMacros)
 	open override func loadWindow() {
 		guard !tryLoadCustomWindow() else { return }
 		super.loadWindow()
 	}
-	#endif
 
 	open func _init() {}
 

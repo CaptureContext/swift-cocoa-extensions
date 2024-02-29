@@ -7,29 +7,36 @@ open class CustomCollectionViewCell:
 	CocoaCollectionViewCell,
 	CustomCocoaViewControllerProtocol
 {
-	@Handler<Void>
+	private(set) open var isVisible = false
+
+	@Handler1<Void>
 	public var onDismiss
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLoad
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillAppear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidAppear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillDisappear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidDisappear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillLayout
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLayout
+
+	open override func loadView() {
+		guard !tryLoadCustomContentView() else { return }
+		super.loadView()
+	}
 
 	open override func viewDidLoad() {
 		super.viewDidLoad()
@@ -42,6 +49,7 @@ open class CustomCollectionViewCell:
 	}
 
 	open override func viewDidAppear() {
+		isVisible = true
 		super.viewDidAppear()
 		_onViewDidAppear()
 	}
@@ -54,6 +62,7 @@ open class CustomCollectionViewCell:
 	open override func viewDidDisappear() {
 		super.viewDidDisappear()
 		_onViewDidDisappear()
+		isVisible = true
 	}
 
 	open override func viewWillLayout() {

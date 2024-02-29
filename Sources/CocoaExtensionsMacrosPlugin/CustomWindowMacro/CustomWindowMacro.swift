@@ -3,7 +3,7 @@ import SwiftDiagnostics
 import SwiftSyntax
 import SwiftSyntaxMacros
 
-public struct CustomViewMacro: CustomPropertyMacro {
+public struct CustomWindowMacro: CustomPropertyMacro {
 	public static func expansion<
 		_Declaration: DeclSyntaxProtocol,
 		_Context: MacroExpansionContext
@@ -20,18 +20,18 @@ public struct CustomViewMacro: CustomPropertyMacro {
 		case let .failure(diagnostic):
 			return context.diagnose(diagnostic, return: [])
 		}
-		
+
 		return [
 			AccessorDeclSyntax(
 				accessorSpecifier: .keyword(.get),
 				body: CodeBlockSyntax {
-					"self.view as? \(raw: property.type.unwrappedDescription)"
+					"self.window as? \(raw: property.type.unwrappedDescription)"
 				}
 			),
 			AccessorDeclSyntax(
 				accessorSpecifier: .keyword(.set),
 				body: CodeBlockSyntax {
-					"self.view = newValue"
+					"self.window = newValue"
 				}
 			),
 		]
@@ -58,8 +58,8 @@ public struct CustomViewMacro: CustomPropertyMacro {
 		let accessModifier = property.accessModifier == ._open ? "open" : "public"
 
 		let decl: DeclSyntax = """
-		\(raw: accessModifier) override func loadView() {
-			self.view = \(raw: initializer)
+		\(raw: accessModifier) override func loadWindow() {
+			self.\(raw: property.name) = \(raw: initializer)
 		}
 		"""
 

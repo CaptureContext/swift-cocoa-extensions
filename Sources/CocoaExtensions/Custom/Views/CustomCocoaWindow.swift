@@ -4,7 +4,7 @@ import FunctionalClosures
 
 #if os(macOS)
 open class CustomCocoaWindow: CocoaWindow, CustomCocoaWindowProtocol {
-	@Handler<Void>
+	@Handler1<Void>
 	public var onClose
 	
 	public override func close() {

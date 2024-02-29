@@ -17,28 +17,28 @@ open class CustomTabBarController:
 		_overrideNavigationController() ?? super.navigationController
 	}
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onDismiss
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLoad
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillAppear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidAppear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillDisappear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidDisappear
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillLayout
 	
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLayout
 	
 	open override func viewDidLoad() {

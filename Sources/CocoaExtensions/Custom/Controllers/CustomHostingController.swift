@@ -1,4 +1,4 @@
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !os(watchOS)
 import DeclarativeConfiguration
 import CocoaAliases
 import SwiftUI
@@ -9,7 +9,7 @@ extension CocoaHostingController where Content: ExpressibleByNilLiteral {
 	}
 }
 
-#if canImport(UIKit) && !os(watchOS)
+#if canImport(UIKit)
 
 extension CustomHostingController: NavigationControllerDynamicOverridable {}
 
@@ -26,28 +26,28 @@ open class CustomHostingController<Content: View>:
 		_overrideNavigationController() ?? super.navigationController
 	}
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onDismiss
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLoad
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillAppear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidAppear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillDisappear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidDisappear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillLayout
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLayout
 
 	open override func viewDidLoad() {
@@ -125,28 +125,28 @@ open class CustomHostingController<Content: View>:
 {
 	private(set) open var isVisible = false
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onDismiss
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLoad
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillAppear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidAppear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillDisappear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidDisappear
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewWillLayout
 
-	@Handler<Void>
+	@Handler1<Void>
 	public var onViewDidLayout
 
 	open override func viewDidLoad() {
