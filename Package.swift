@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.2
 
 import PackageDescription
 import CompilerPluginSupport
@@ -25,15 +25,15 @@ let package = Package(
 	dependencies: [
 		.package(
 			url: "https://github.com/capturecontext/cocoa-aliases.git",
-			.upToNextMajor(from: "2.0.5")
+			.upToNextMajor(from: "3.0.0")
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-declarative-configuration.git",
-			.upToNextMinor(from: "0.3.3")
+			.upToNextMinor(from: "0.5.0")
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-foundation-extensions.git",
-			.upToNextMinor(from: "0.5.0")
+			.upToNextMinor(from: "0.6.0")
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-identified-collections.git",
@@ -41,12 +41,16 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/stackotter/swift-macro-toolkit.git",
-			.upToNextMinor(from: "0.3.0")
+			.upToNextMinor(from: "0.8.0")
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-macro-testing.git",
-			.upToNextMinor(from: "0.2.2")
-		)
+			.upToNextMinor(from: "0.6.0")
+		),
+		.package(
+			url: "https://github.com/pointfreeco/xctest-dynamic-overlay.git",
+			.upToNextMajor(from: "1.8.0")
+		),
 	],
 	targets: [
 		.target(
@@ -93,13 +97,15 @@ let package = Package(
 		.testTarget(
 			name: "CocoaExtensionsTests",
 			dependencies: [
-				.target(name: "CocoaExtensions")
+				.target(name: "CocoaExtensions"),
+				.product(name: "IssueReportingTestSupport", package: "xctest-dynamic-overlay"),
 			]
 		),
 		.testTarget(
 			name: "CocoaExtensionsMacrosTests",
 			dependencies: [
-				.target(name: "CocoaExtensionsMacros")
+				.target(name: "CocoaExtensionsMacros"),
+				.product(name: "IssueReportingTestSupport", package: "xctest-dynamic-overlay"),
 			]
 		),
 		.testTarget(
@@ -107,7 +113,9 @@ let package = Package(
 			dependencies: [
 				.target(name: "CocoaExtensionsMacrosPlugin"),
 				.product(name: "MacroTesting", package: "swift-macro-testing"),
+				.product(name: "IssueReportingTestSupport", package: "xctest-dynamic-overlay"),
 			]
 		),
-	]
+	],
+	swiftLanguageModes: [.v6]
 )

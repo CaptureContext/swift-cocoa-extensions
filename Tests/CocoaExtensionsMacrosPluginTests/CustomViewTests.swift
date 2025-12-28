@@ -5,7 +5,7 @@ import CocoaExtensionsMacrosPlugin
 final class CustomViewTests: XCTestCase {
 	override func invokeTest() {
 		withMacroTesting(
-			isRecording: false,
+			record: false,
 			macros: [
 				"CustomView": CustomViewMacro.self
 			]
@@ -116,7 +116,7 @@ final class CustomViewTests: XCTestCase {
 		} expansion: {
 			"""
 			class ViewController: CustomCocoaViewController {
-				var contentView: ContentView! = .init(fancyInit: true) {
+				var contentView: ContentView! {
 					get {
 						self.view as? ContentView
 					}
@@ -144,7 +144,7 @@ final class CustomViewTests: XCTestCase {
 		} expansion: {
 			"""
 			class ViewController: CustomCocoaViewController {
-				var contentView: ContentView! = ContentView(fancyInit: true) {
+				var contentView: ContentView! {
 					get {
 						self.view as? ContentView
 					}

@@ -9,78 +9,77 @@ open class CustomTabBarController:
 	CustomCocoaViewControllerProtocol
 {
 	private(set) open var isVisible = false
-	
-	@OptionalDataSource<Void, UINavigationController?>
-	public var overrideNavigationController
-	
+
+	public var overrideNavigationController: () -> UINavigationController? = { nil }
+
 	override open var navigationController: UINavigationController? {
-		_overrideNavigationController() ?? super.navigationController
+		overrideNavigationController() ?? super.navigationController
 	}
 	
-	@Handler1<Void>
-	public var onDismiss
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onDismiss: (() -> Void)?
 	
-	@Handler1<Void>
-	public var onViewDidLoad
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidLoad: (() -> Void)?
 	
-	@Handler1<Void>
-	public var onViewWillAppear
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillAppear: (() -> Void)?
 	
-	@Handler1<Void>
-	public var onViewDidAppear
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidAppear: (() -> Void)?
 	
-	@Handler1<Void>
-	public var onViewWillDisappear
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillDisappear: (() -> Void)?
 	
-	@Handler1<Void>
-	public var onViewDidDisappear
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidDisappear: (() -> Void)?
 	
-	@Handler1<Void>
-	public var onViewWillLayout
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillLayout: (() -> Void)?
 	
-	@Handler1<Void>
-	public var onViewDidLayout
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidLayout: (() -> Void)?
 	
 	open override func viewDidLoad() {
 		super.viewDidLoad()
-		_onViewDidLoad()
+		onViewDidLoad?()
 	}
 	
 	open override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		_onViewWillAppear()
+		onViewWillAppear?()
 	}
 	
 	open override func viewDidAppear(_ animated: Bool) {
 		isVisible = true
 		super.viewDidAppear(animated)
-		_onViewDidAppear()
+		onViewDidAppear?()
 	}
 	
 	open override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		_onViewWillDisappear()
+		onViewWillDisappear?()
 	}
 	
 	open override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
-		_onViewDidDisappear()
+		onViewDidDisappear?()
 		isVisible = false
 	}
 	
 	open override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
-		_onViewWillLayout()
+		onViewWillLayout?()
 	}
 	
 	open override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		_onViewDidLayout()
+		onViewDidLayout?()
 	}
 	
 	open override func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
 		super.dismiss(animated: animated, completion: completion)
-		_onDismiss()
+		onDismiss?()
 	}
 	
 	/// Use `override _init` instead of overriding this initializer

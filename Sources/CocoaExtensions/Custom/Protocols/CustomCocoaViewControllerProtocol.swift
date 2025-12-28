@@ -7,13 +7,29 @@ public protocol CustomCocoaViewControllerProtocol:
 	CustomNSObjectProtocol
 {
 	var isVisible: Bool { get }
-	var onDismiss: Handler1<Void>.Container { get set }
-	var onViewDidLoad: Handler1<Void>.Container { get set }
-	var onViewWillAppear: Handler1<Void>.Container { get set }
-	var onViewDidAppear: Handler1<Void>.Container { get set }
-	var onViewWillDisappear: Handler1<Void>.Container { get set }
-	var onViewDidDisappear: Handler1<Void>.Container { get set }
-	var onViewWillLayout: Handler1<Void>.Container { get set }
-	var onViewDidLayout: Handler1<Void>.Container { get set }
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	var onDismiss: (() -> Void)? { get set }
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	var onViewDidLoad: (() -> Void)? { get set }
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	var onViewWillAppear: (() -> Void)? { get set }
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	var onViewDidAppear: (() -> Void)? { get set }
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	var onViewWillDisappear: (() -> Void)? { get set }
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	var onViewDidDisappear: (() -> Void)? { get set }
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	var onViewWillLayout: (() -> Void)? { get set }
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	var onViewDidLayout: (() -> Void)? { get set }
 }
 #endif

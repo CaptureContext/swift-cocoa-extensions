@@ -9,37 +9,36 @@ open class CustomCocoaViewController:
 	CustomCocoaViewControllerProtocol
 {
 	private(set) open var isVisible = false
-	
-	@OptionalDataSource<Void, UINavigationController?>
-	public var overrideNavigationController
-	
+
+	public var overrideNavigationController: () -> UINavigationController? = { nil }
+
 	override open var navigationController: UINavigationController? {
-		_overrideNavigationController() ?? super.navigationController
+		overrideNavigationController() ?? super.navigationController
 	}
-	
-	@Handler1<Void>
-	public var onDismiss
-	
-	@Handler1<Void>
-	public var onViewDidLoad
-	
-	@Handler1<Void>
-	public var onViewWillAppear
-	
-	@Handler1<Void>
-	public var onViewDidAppear
-	
-	@Handler1<Void>
-	public var onViewWillDisappear
-	
-	@Handler1<Void>
-	public var onViewDidDisappear
-	
-	@Handler1<Void>
-	public var onViewWillLayout
-	
-	@Handler1<Void>
-	public var onViewDidLayout
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onDismiss: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidLoad: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillAppear: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidAppear: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillDisappear: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidDisappear: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillLayout: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidLayout: (() -> Void)?
 
 	open override func loadView() {
 		guard !tryLoadCustomContentView() else { return }
@@ -48,44 +47,44 @@ open class CustomCocoaViewController:
 
 	open override func viewDidLoad() {
 		super.viewDidLoad()
-		_onViewDidLoad()
+		onViewDidLoad?()
 	}
 	
 	open override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		_onViewWillAppear()
+		onViewWillAppear?()
 	}
 	
 	open override func viewDidAppear(_ animated: Bool) {
 		isVisible = true
 		super.viewDidAppear(animated)
-		_onViewDidAppear()
+		onViewDidAppear?()
 	}
 	
 	open override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		_onViewWillDisappear()
+		onViewWillDisappear?()
 	}
 	
 	open override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
-		_onViewDidDisappear()
+		onViewDidDisappear?()
 		isVisible = false
 	}
 	
 	open override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
-		_onViewWillLayout()
+		onViewWillLayout?()
 	}
 	
 	open override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		_onViewDidLayout()
+		onViewDidLayout?()
 	}
 
 	open override func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
 		super.dismiss(animated: animated, completion: completion)
-		_onDismiss()
+		onDismiss?()
 	}
 	
 	/// Use `override _init` instead of overriding this initializer
@@ -109,30 +108,30 @@ open class CustomCocoaViewController:
 	CustomCocoaViewControllerProtocol
 {
 	private(set) open var isVisible = false
-	
-	@Handler1<Void>
-	public var onDismiss
-	
-	@Handler1<Void>
-	public var onViewDidLoad
-	
-	@Handler1<Void>
-	public var onViewWillAppear
-	
-	@Handler1<Void>
-	public var onViewDidAppear
-	
-	@Handler1<Void>
-	public var onViewWillDisappear
-	
-	@Handler1<Void>
-	public var onViewDidDisappear
-	
-	@Handler1<Void>
-	public var onViewWillLayout
-	
-	@Handler1<Void>
-	public var onViewDidLayout
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onDismiss: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidLoad: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillAppear: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidAppear: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillDisappear: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidDisappear: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillLayout: (() -> Void)?
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidLayout: (() -> Void)?
 
 	open override func loadView() {
 		guard !tryLoadCustomContentView() else { return }
@@ -141,44 +140,44 @@ open class CustomCocoaViewController:
 
 	open override func viewDidLoad() {
 		super.viewDidLoad()
-		_onViewDidLoad()
+		onViewDidLoad?()
 	}
 	
 	open override func viewWillAppear() {
 		super.viewWillAppear()
-		_onViewWillAppear()
+		onViewWillAppear?()
 	}
 	
 	open override func viewDidAppear() {
 		isVisible = true
 		super.viewDidAppear()
-		_onViewDidAppear()
+		onViewDidAppear?()
 	}
 	
 	open override func viewWillDisappear() {
 		super.viewWillDisappear()
-		_onViewWillDisappear()
+		onViewWillDisappear?()
 	}
 	
 	open override func viewDidDisappear() {
 		super.viewDidDisappear()
-		_onViewDidDisappear()
+		onViewDidDisappear?()
 		isVisible = false
 	}
 	
 	open override func viewWillLayout() {
 		super.viewWillLayout()
-		_onViewWillLayout()
+		onViewWillLayout?()
 	}
 	
 	open override func viewDidLayout() {
 		super.viewDidLayout()
-		_onViewDidLayout()
+		onViewDidLayout?()
 	}
 	
 	open override func dismiss(_ sender: Any?) {
 		super.dismiss(sender)
-		self._onDismiss()
+		self.onDismiss?()
 	}
 	
 	/// Use `override _init` instead of overriding this initializer

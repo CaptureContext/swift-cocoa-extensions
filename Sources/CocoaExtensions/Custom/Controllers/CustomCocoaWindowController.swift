@@ -6,11 +6,11 @@ open class CustomCocoaWindowController:
 	NSWindowController,
 	CustomCocoaWindowControllerProtocol
 {
-	@Handler1<Void>
-	public var onWindowWillLoad
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onWindowWillLoad: (() -> Void)?
 
-	@Handler1<Void>
-	public var onWindowDidLoad
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onWindowDidLoad: (() -> Void)?
 
 	/// Use `override _init` instead of overriding this initializer
 	public override init(window: CocoaWindow?) {
@@ -33,12 +33,12 @@ open class CustomCocoaWindowController:
 
 	open override func windowWillLoad() {
 		super.windowWillLoad()
-		_onWindowWillLoad()
+		onWindowWillLoad?()
 	}
 
 	open override func windowDidLoad() {
 		super.windowDidLoad()
-		_onWindowDidLoad()
+		onWindowDidLoad?()
 	}
 }
 #endif

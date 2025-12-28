@@ -8,6 +8,7 @@ protocol _CustomWindowLoaderProtocol {
 	func _load(to controller: NSWindowController)
 }
 
+@available(*, deprecated, renamed: "CustomWindow")
 @propertyWrapper
 public final class _CustomWindow<Window: CocoaWindow>: _CustomWindowLoaderProtocol {
 	public static subscript<Controller: NSWindowController>(

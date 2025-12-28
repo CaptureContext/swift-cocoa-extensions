@@ -4,7 +4,8 @@ import FunctionalClosures
 
 #if os(macOS)
 public protocol CustomCocoaWindowProtocol: CustomNSObjectProtocol {
-	var onClose: Handler1<Void>.Container { get set }
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	var onClose: (() -> Void)? { get set }
 }
 #elseif canImport(UIKit)
 public protocol CustomCocoaWindowProtocol: CustomCocoaViewProtocol {}

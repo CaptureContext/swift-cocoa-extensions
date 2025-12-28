@@ -22,32 +22,6 @@ public struct AnyNSMenuAttachableItem: NSMenuAttachableItem {
 	}
 }
 
-public struct NSSubmenu: NSMenuAttachableItem {
-	public init(
-		_ title: String,
-		shortcut: NSMenuItem.KeyEquivalent? = nil,
-		@MenuItemsBuilder content: () -> NSMenuAttachableItem
-	) {
-		self.title = title
-		self.shortcut = shortcut
-		self.content = content()
-	}
-	
-	let title: String
-	let shortcut: NSMenuItem.KeyEquivalent?
-	let content: NSMenuAttachableItem
-	
-	@discardableResult
-	public func attach(to menu: NSMenu) -> [NSMenuItem] {
-		let _item = NSMenuItem(title, shortcut: shortcut, action: {})
-		_item.attach(to: menu)
-		let _menu = NSMenu()
-		content.attach(to: _menu)
-		menu.setSubmenu(_menu, for: _item)
-		return [_item]
-	}
-}
-
 @resultBuilder
 public struct MenuItemsBuilder {
 	public static func buildBlock(

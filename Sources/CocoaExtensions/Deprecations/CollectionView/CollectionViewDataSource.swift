@@ -2,6 +2,7 @@
 import CocoaAliases
 import FunctionalClosures
 
+@available(*, deprecated, message: "Consider migrating to DiffableDataSource")
 public class CollectionViewDataSource<
 	CellView: CocoaView,
 	SupplimentaryView: CocoaView

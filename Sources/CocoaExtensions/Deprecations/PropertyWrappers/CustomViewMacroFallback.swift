@@ -51,6 +51,7 @@ protocol _CustomViewLoaderProtocol {
 ///   }
 /// }
 /// ```
+@available(*, deprecated, renamed: "CustomView")
 @propertyWrapper
 public final class _CustomView<ContentView: CocoaView>: _CustomViewLoaderProtocol {
 	public static subscript<Controller: CocoaViewController>(

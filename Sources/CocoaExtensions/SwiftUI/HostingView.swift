@@ -2,7 +2,7 @@
 import SwiftUI
 
 open class UIHostingView<RootView: View>: CustomCocoaView {
-	public let controller: UIHostingController<RootView>
+	public let controller: UIHostingController<RootView?>
 
 	public convenience init(@ViewBuilder content: () -> RootView) {
 		self.init(rootView: content())
@@ -14,20 +14,16 @@ open class UIHostingView<RootView: View>: CustomCocoaView {
 	}
 
 	public override init(frame: CGRect) {
-		guard let rootView = Self.tryInitOptionalRootView()
-		else { fatalError("Root view is not expressible by nil literal") }
-		self.controller = UIHostingController(rootView: rootView)
+		self.controller = UIHostingController(rootView: nil)
 		super.init(frame: frame)
 	}
 
 	public required init?(coder: NSCoder) {
-		guard let rootView = Self.tryInitOptionalRootView()
-		else { fatalError("Root view is not expressible by nil literal") }
-		self.controller = UIHostingController(rootView: rootView)
+		self.controller = UIHostingController(rootView: nil)
 		super.init(coder: coder)
 	}
 
-	public var rootView: RootView {
+	public var rootView: RootView? {
 		get { controller.rootView }
 		set { controller.rootView = newValue }
 	}
@@ -49,16 +45,6 @@ open class UIHostingView<RootView: View>: CustomCocoaView {
 		nearestViewController.map { parent in
 			controller.didMove(toParent: parent)
 		}
-	}
-}
-
-extension UIHostingView {
-	fileprivate static func tryInitOptionalRootView() -> RootView? {
-		guard
-			let rootViewType = RootView.self as? ExpressibleByNilLiteral.Type,
-			let rootView = rootViewType.init(nilLiteral: ()) as? RootView
-		else { return nil }
-		return rootView
 	}
 }
 #endif

@@ -2,9 +2,6 @@
 import FunctionalClosures
 
 public protocol NavigationControllerDynamicOverridable {
-	var overrideNavigationController: OptionalDataSource<
-		Void,
-		UINavigationController?
-	>.Container { get set }
+	var overrideNavigationController: () -> UINavigationController? { get set }
 }
 #endif

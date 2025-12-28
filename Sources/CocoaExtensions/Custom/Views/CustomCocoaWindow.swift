@@ -4,12 +4,12 @@ import FunctionalClosures
 
 #if os(macOS)
 open class CustomCocoaWindow: CocoaWindow, CustomCocoaWindowProtocol {
-	@Handler1<Void>
-	public var onClose
-	
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onClose: (() -> Void)?
+
 	public override func close() {
 		super.close()
-		_onClose()
+		onClose?()
 	}
 	
 	public override init(

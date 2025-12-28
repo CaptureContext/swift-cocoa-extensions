@@ -116,7 +116,7 @@ final class CustomWindowTests: XCTestCase {
 		} expansion: {
 			"""
 			class WindowController {
-				var customWindow: ContentWindow! = CustomWindow(fancyInit: true) {
+				var customWindow: ContentWindow! {
 					get {
 						self.window as? ContentWindow
 					}

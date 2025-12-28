@@ -9,29 +9,29 @@ open class CustomCollectionViewCell:
 {
 	private(set) open var isVisible = false
 
-	@Handler1<Void>
-	public var onDismiss
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onDismiss: (() -> Void)?
 
-	@Handler1<Void>
-	public var onViewDidLoad
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidLoad: (() -> Void)?
 
-	@Handler1<Void>
-	public var onViewWillAppear
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillAppear: (() -> Void)?
 
-	@Handler1<Void>
-	public var onViewDidAppear
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidAppear: (() -> Void)?
 
-	@Handler1<Void>
-	public var onViewWillDisappear
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillDisappear: (() -> Void)?
 
-	@Handler1<Void>
-	public var onViewDidDisappear
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidDisappear: (() -> Void)?
 
-	@Handler1<Void>
-	public var onViewWillLayout
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewWillLayout: (() -> Void)?
 
-	@Handler1<Void>
-	public var onViewDidLayout
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	public var onViewDidLayout: (() -> Void)?
 
 	open override func loadView() {
 		guard !tryLoadCustomContentView() else { return }
@@ -40,44 +40,44 @@ open class CustomCollectionViewCell:
 
 	open override func viewDidLoad() {
 		super.viewDidLoad()
-		_onViewDidLoad()
+		onViewDidLoad?()
 	}
 
 	open override func viewWillAppear() {
 		super.viewWillAppear()
-		_onViewWillAppear()
+		onViewWillAppear?()
 	}
 
 	open override func viewDidAppear() {
 		isVisible = true
 		super.viewDidAppear()
-		_onViewDidAppear()
+		onViewDidAppear?()
 	}
 
 	open override func viewWillDisappear() {
 		super.viewWillDisappear()
-		_onViewWillDisappear()
+		onViewWillDisappear?()
 	}
 
 	open override func viewDidDisappear() {
 		super.viewDidDisappear()
-		_onViewDidDisappear()
+		onViewDidDisappear?()
 		isVisible = true
 	}
 
 	open override func viewWillLayout() {
 		super.viewWillLayout()
-		_onViewWillLayout()
+		onViewWillLayout?()
 	}
 
 	open override func viewDidLayout() {
 		super.viewDidLayout()
-		_onViewDidLayout()
+		onViewDidLayout?()
 	}
 
 	open override func dismiss(_ sender: Any?) {
 		super.dismiss(sender)
-		self._onDismiss()
+		self.onDismiss?()
 	}
 
 	/// Use `override _init` instead of overriding this initializer

@@ -4,7 +4,7 @@ import FoundationExtensions
 import DeclarativeConfiguration
 
 public protocol ToolbarItemProtocol: NSToolbarItem {
-	var onAction: Handler1<Void>.Container { get }
+	var onAction: (() -> Void)? { get }
 	var isSelectable: Bool { get }
 }
 
@@ -33,11 +33,10 @@ public class SidebarTrackingToolbarItem: NSTrackingSeparatorToolbarItem, Toolbar
 		self.action = #selector(__action)
 	}
 	
-	@Handler1<Void>
-	public var onAction
+	public var onAction: (() -> Void)?
 	
 	@objc
-	private func __action() { _onAction() }
+	private func __action() { onAction?() }
 }
 
 public class ToolbarItem: NSToolbarItem, ToolbarItemProtocol, Identifiable {
@@ -59,11 +58,10 @@ public class ToolbarItem: NSToolbarItem, ToolbarItemProtocol, Identifiable {
 		self.action = #selector(__action)
 	}
 	
-	@Handler1<Void>
-	public var onAction
+	public var onAction: (() -> Void)?
 	
 	@objc
-	private func __action() { _onAction() }
+	private func __action() { onAction?() }
 }
 
 public class ToolbarItemGroup: NSToolbarItemGroup, ToolbarItemGroupProtocol, Identifiable {
@@ -95,10 +93,9 @@ public class ToolbarItemGroup: NSToolbarItemGroup, ToolbarItemGroupProtocol, Ide
 		self.action = #selector(__action)
 	}
 	
-	@Handler1<Void>
-	public var onAction
+	public var onAction: (() -> Void)?
 	
 	@objc
-	private func __action() { _onAction() }
+	private func __action() { onAction?() }
 }
 #endif

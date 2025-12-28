@@ -6,7 +6,10 @@ public protocol CustomCocoaWindowControllerProtocol:
 	NSWindowController,
 	CustomNSObjectProtocol
 {
-	var onWindowWillLoad: Handler1<Void>.Container { get set }
-	var onWindowDidLoad: Handler1<Void>.Container { get set }
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	var onWindowWillLoad: (() -> Void)? { get set }
+
+	@available(*, deprecated, message: "Consider using publisher-based interception instead")
+	var onWindowDidLoad: (() -> Void)? { get set }
 }
 #endif

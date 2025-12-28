@@ -1,6 +1,7 @@
 #if canImport(UIKit) && !os(watchOS)
 import CocoaAliases
 
+@available(*, deprecated, message: "Consider copying sources")
 public class CollectionReusableView<
 	Content: CocoaView
 >: CustomCollectionReusableView {
