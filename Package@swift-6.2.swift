@@ -1,4 +1,4 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 6.2
 
 import PackageDescription
 import CompilerPluginSupport
@@ -41,7 +41,7 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/stackotter/swift-macro-toolkit.git",
-			.upToNextMinor(from: "0.7.0")
+			.upToNextMinor(from: "0.8.0")
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-macro-testing.git",
