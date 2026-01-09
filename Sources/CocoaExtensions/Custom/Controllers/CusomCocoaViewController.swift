@@ -100,7 +100,11 @@ open class CustomCocoaViewController:
 	}
 	
 	/// Only for `override` purposes, do not call directly
-	open func _init() {}
+	open func _init() {
+		_nonisolatedInit()
+	}
+
+	open func _nonisolatedInit() {}
 }
 #elseif canImport(AppKit)
 open class CustomCocoaViewController:
@@ -192,6 +196,10 @@ open class CustomCocoaViewController:
 		self._init()
 	}
 	/// Only for `override` purposes, do not call directly
-	open func _init() {}
+	open func _init() {
+		_nonisolatedInit()
+	}
+
+	open func _nonisolatedInit() {}
 }
 #endif

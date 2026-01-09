@@ -27,7 +27,11 @@ open class CustomCocoaWindow: CocoaWindow, CustomCocoaWindowProtocol {
 		self._init()
 	}
 	
-	open func _init() {}
+	open func _init() {
+		_nonisolatedInit()
+	}
+
+	open func _nonisolatedInit() {}
 }
 #elseif canImport(UIKit)
 open class CustomCocoaWindow: CocoaWindow, CustomCocoaWindowProtocol {
@@ -46,7 +50,11 @@ open class CustomCocoaWindow: CocoaWindow, CustomCocoaWindowProtocol {
 		self._init()
 	}
 	
-	open func _init() {}
+	open func _init() {
+		_nonisolatedInit()
+	}
+
+	open func _nonisolatedInit() {}
 }
 #endif
 #endif

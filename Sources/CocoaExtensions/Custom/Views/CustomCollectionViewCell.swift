@@ -92,7 +92,11 @@ open class CustomCollectionViewCell:
 		self._init()
 	}
 	/// Only for `override` purposes, do not call directly
-	open func _init() {}
+	open func _init() {
+		_nonisolatedInit()
+	}
+
+	open func _nonisolatedInit() {}
 }
 #else
 open class CustomCollectionViewCell:
@@ -109,7 +113,11 @@ open class CustomCollectionViewCell:
 		self._init()
 	}
 
-	open func _init() {}
+	open func _init() {
+		_nonisolatedInit()
+	}
+
+	open func _nonisolatedInit() {}
 }
 #endif
 #endif

@@ -29,7 +29,11 @@ open class CustomCocoaWindowController:
 		super.loadWindow()
 	}
 
-	open func _init() {}
+	open func _init() {
+		_nonisolatedInit()
+	}
+
+	open func _nonisolatedInit() {}
 
 	open override func windowWillLoad() {
 		super.windowWillLoad()

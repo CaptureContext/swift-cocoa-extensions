@@ -2,6 +2,7 @@
 import CocoaAliases
 import FunctionalClosures
 
+@MainActor
 public protocol CustomCocoaWindowControllerProtocol:
 	NSWindowController,
 	CustomNSObjectProtocol

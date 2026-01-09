@@ -11,6 +11,7 @@ protocol _CustomWindowLoaderProtocol {
 @available(*, deprecated, renamed: "CustomWindow")
 @propertyWrapper
 public final class _CustomWindow<Window: CocoaWindow>: _CustomWindowLoaderProtocol {
+	@MainActor
 	public static subscript<Controller: NSWindowController>(
 		_enclosingInstance controller: Controller,
 		wrapped wrappedKeyPath: ReferenceWritableKeyPath<Controller, Window>,

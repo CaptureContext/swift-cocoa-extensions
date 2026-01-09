@@ -95,6 +95,10 @@ open class CustomTabBarController:
 	}
 	
 	/// Only for `override` purposes, do not call directly
-	open func _init() {}
+	open func _init() {
+		_nonisolatedInit()
+	}
+
+	open func _nonisolatedInit() {}
 }
 #endif

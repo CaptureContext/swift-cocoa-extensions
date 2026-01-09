@@ -12,6 +12,10 @@ open class CustomCollectionReusableView: CocoaCollectionReusableView, CustomCoco
 		self._init()
 	}
 
-	open func _init() {}
+	open func _init() {
+		_nonisolatedInit()
+	}
+
+	open func _nonisolatedInit() {}
 }
 #endif

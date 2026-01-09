@@ -30,6 +30,7 @@ protocol _CustomViewLoaderProtocol {
 ///     }
 ///
 ///     override func _init() {
+///       super._init()
 ///       addSubview(label)
 ///     }
 ///
@@ -54,6 +55,7 @@ protocol _CustomViewLoaderProtocol {
 @available(*, deprecated, renamed: "CustomView")
 @propertyWrapper
 public final class _CustomView<ContentView: CocoaView>: _CustomViewLoaderProtocol {
+	@MainActor
 	public static subscript<Controller: CocoaViewController>(
 		_enclosingInstance controller: Controller,
 		wrapped wrappedKeyPath: ReferenceWritableKeyPath<Controller, ContentView>,

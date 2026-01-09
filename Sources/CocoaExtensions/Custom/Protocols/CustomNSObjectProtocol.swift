@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol CustomNSObjectProtocol: NSObject {
-	func _init()
+	nonisolated func _nonisolatedInit()
 }

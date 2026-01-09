@@ -19,6 +19,10 @@ open class CustomCocoaTableView: CocoaTableView, CustomCocoaViewProtocol {
 		self._init()
 	}
 
-	open func _init() {}
+	open func _init() {
+		_nonisolatedInit()
+	}
+
+	open func _nonisolatedInit() {}
 }
 #endif
