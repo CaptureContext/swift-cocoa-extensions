@@ -7,28 +7,53 @@ on:
   pull_request:
     branches:
       - '*'
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  library-swift-latest:
-    name: Library
+  xcodebuild:
+    name: xcodebuild
     if: |
       !contains(github.event.head_commit.message, '[ci skip]') &&
-      !contains(github.event.head_commit.message, '[ci skip test]') &&
-      !contains(github.event.head_commit.message, '[ci skip library-swift-latest]')
-    runs-on: macos-26
-    timeout-minutes: 30
+      !contains(github.event.head_commit.message, '[ci skip build]')
+    runs-on: macos-latest
     strategy:
       matrix:
-        config:
-          - debug
-          - release
+        platform: [iOS, macOS, macCatalyst, tvOS, watchOS]
+        xcode: ['26.2']
+    timeout-minutes: 30
     steps:
-    - uses: actions/checkout@v4
-    - name: Select Xcode 26.2
-      run: sudo xcode-select -s /Applications/Xcode_26.2.app
-    - name: Run test
-      run: swift test
+    - uses: actions/checkout@v6
+    - name: Build
+      uses: capturecontext/swift-package-action/build@3.0-beta.13
+      with:
+        xcode: ${{ matrix.xcode }}
+        cache-derived-data: true
+        action: xcodebuild
+        platform: ${{ matrix.platform }}
+        scheme: swift-cocoa-extensions-Package
+
+  xcodebuild-test:
+    name: xcodebuild-test
+    if: |
+      !contains(github.event.head_commit.message, '[ci skip]') &&
+      !contains(github.event.head_commit.message, '[ci skip test]')
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        platform: [macOS]
+        xcode: ['26.2']
+    timeout-minutes: 30
+    steps:
+    - uses: actions/checkout@v6
+    - name: Test
+      uses: capturecontext/swift-package-action/build@3.0-beta.13
+      with:
+        xcode: ${{ matrix.xcode }}
+        cache-derived-data: true
+        action: xcodebuild-test
+        platform: ${{ matrix.platform }}
+        scheme: swift-cocoa-extensions-Package
