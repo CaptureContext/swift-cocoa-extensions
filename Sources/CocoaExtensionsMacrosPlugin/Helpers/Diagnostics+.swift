@@ -8,4 +8,4 @@ extension MacroExpansionContext {
 	}
 }
 
-extension Diagnostic: Error {}
+extension Diagnostic: @retroactive Error {}

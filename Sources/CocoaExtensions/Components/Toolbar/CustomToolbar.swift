@@ -65,6 +65,7 @@ public final class CustomToolbar: NSToolbar {
 }
 
 extension CustomToolbar {
+	@MainActor
 	public class Delegate: NSObject, NSToolbarDelegate {
 		weak var toolbar: CustomToolbar?
 		

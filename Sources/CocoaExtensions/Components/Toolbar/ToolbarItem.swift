@@ -14,7 +14,7 @@ extension ToolbarItemProtocol {
 
 public protocol ToolbarItemGroupProtocol: NSToolbarItemGroup, ToolbarItemProtocol {}
 
-public class SidebarTrackingToolbarItem: NSTrackingSeparatorToolbarItem, ToolbarItemProtocol, Identifiable {
+public class SidebarTrackingToolbarItem: NSTrackingSeparatorToolbarItem, ToolbarItemProtocol, @MainActor Identifiable {
 	public typealias ID = Identifier
 	
 	public var isSelectable: Bool { false }
@@ -39,7 +39,7 @@ public class SidebarTrackingToolbarItem: NSTrackingSeparatorToolbarItem, Toolbar
 	private func __action() { onAction?() }
 }
 
-public class ToolbarItem: NSToolbarItem, ToolbarItemProtocol, Identifiable {
+public class ToolbarItem: NSToolbarItem, ToolbarItemProtocol, @MainActor Identifiable {
 	public typealias ID = Identifier
 	
 	public var isSelectable: Bool = false
@@ -64,7 +64,7 @@ public class ToolbarItem: NSToolbarItem, ToolbarItemProtocol, Identifiable {
 	private func __action() { onAction?() }
 }
 
-public class ToolbarItemGroup: NSToolbarItemGroup, ToolbarItemGroupProtocol, Identifiable {
+public class ToolbarItemGroup: NSToolbarItemGroup, ToolbarItemGroupProtocol, @MainActor Identifiable {
 	public typealias ID = Identifier
 	
 	public var isSelectable: Bool { false }
