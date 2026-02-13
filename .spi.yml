@@ -1,5 +1,27 @@
 version: 1
 builder:
   configs:
-  - documentation_targets: [FoundationExtensions]
-    swift_version: 5.9
+  - platform: ios
+    documentation_targets:
+    - CocoaExtensions
+
+  - platform: macos-spm
+    documentation_targets:
+    - CocoaExtensions
+
+  - platform: tvos
+    documentation_targets:
+    - CocoaExtensions
+
+  - platform: watchos
+    documentation_targets:
+    - CocoaExtensions
+
+  - platform: macos-xcodebuild
+  - platform: android
+
+  - platform: linux
+    swift_version: '5.9'
+
+  - platform: linux
+    swift_version: '6.0'
