@@ -1,6 +1,5 @@
-#if !os(watchOS)
+#if !os(watchOS) && canImport(Darwin)
 import CocoaAliases
-import FunctionalClosures
 import FoundationExtensions
 
 protocol _CustomViewLoaderProtocol {

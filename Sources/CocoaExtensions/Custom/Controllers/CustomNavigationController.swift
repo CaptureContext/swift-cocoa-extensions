@@ -1,3 +1,4 @@
+#if canImport(Darwin)
 #if canImport(UIKit) && !os(watchOS)
 import CocoaAliases
 import DeclarativeConfiguration
@@ -10,6 +11,13 @@ open class CustomNavigationController:
 {
 	private(set) open var isVisible = false
 
+	@available(
+		*, deprecated,
+		message: """
+		This protocol is deprecated and will be removed. \
+		It was used for `combine-cocoa-navigation`
+		"""
+	)
 	public var overrideNavigationController: () -> UINavigationController? = { nil }
 
 	override open var navigationController: UINavigationController? {
@@ -107,10 +115,7 @@ open class CustomNavigationController:
 	}
 	
 	/// Only for `override` purposes, do not call directly
-	open func _init() {
-		_nonisolatedInit()
-	}
-
-	open func _nonisolatedInit() {}
+	open func _init() {}
 }
+#endif
 #endif

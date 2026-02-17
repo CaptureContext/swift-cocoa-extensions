@@ -1,4 +1,4 @@
-#if canImport(UIKit) && !os(watchOS)
+#if canImport(UIKit) && canImport(SwiftUI) && !os(watchOS)
 import SwiftUI
 
 open class UIHostingView<RootView: View>: CustomCocoaView {

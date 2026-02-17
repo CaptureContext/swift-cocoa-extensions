@@ -1,4 +1,4 @@
-#if !os(watchOS)
+#if !os(watchOS) && canImport(Darwin)
 import CocoaAliases
 
 extension CocoaCollectionViewLayout {

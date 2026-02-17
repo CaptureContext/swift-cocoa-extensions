@@ -1,3 +1,4 @@
+#if canImport(Darwin)
 import CocoaAliases
 import FoundationExtensions
 
@@ -19,4 +20,5 @@ extension UIApplication {
 			.or(windows.first(where: \.isKeyWindow))
 	}
 }
+#endif
 #endif

@@ -1,6 +1,5 @@
-#if !os(watchOS)
+#if !os(watchOS) && canImport(Darwin)
 import CocoaAliases
-import FunctionalClosures
 
 #if os(macOS)
 open class CustomCollectionViewCell:
@@ -91,12 +90,9 @@ open class CustomCollectionViewCell:
 		super.init(coder: coder)
 		self._init()
 	}
+	
 	/// Only for `override` purposes, do not call directly
-	open func _init() {
-		_nonisolatedInit()
-	}
-
-	open func _nonisolatedInit() {}
+	open func _init() {}
 }
 #else
 open class CustomCollectionViewCell:
@@ -112,12 +108,9 @@ open class CustomCollectionViewCell:
 		super.init(coder: coder)
 		self._init()
 	}
-
-	open func _init() {
-		_nonisolatedInit()
-	}
-
-	open func _nonisolatedInit() {}
+	
+	/// Only for `override` purposes, do not call directly
+	open func _init() {}
 }
 #endif
 #endif

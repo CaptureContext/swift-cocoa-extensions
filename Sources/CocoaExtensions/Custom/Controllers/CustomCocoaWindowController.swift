@@ -1,6 +1,5 @@
 #if os(macOS)
 import CocoaAliases
-import FunctionalClosures
 
 open class CustomCocoaWindowController:
 	NSWindowController,
@@ -29,11 +28,7 @@ open class CustomCocoaWindowController:
 		super.loadWindow()
 	}
 
-	open func _init() {
-		_nonisolatedInit()
-	}
-
-	open func _nonisolatedInit() {}
+	open func _init() {}
 
 	open override func windowWillLoad() {
 		super.windowWillLoad()

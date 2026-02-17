@@ -1,5 +1,10 @@
+#if canImport(CoreGraphics)
 import CoreGraphics
+#endif
+
+#if canImport(SwiftUI)
 import SwiftUI
+#endif
 
 extension CGSize {
 	@inlinable
@@ -17,6 +22,7 @@ extension CGSize {
 		CGPoint(x: width / 2, y: height / 2)
 	}
 
+	#if canImport(SwiftUI)
 	@inlinable
 	public subscript(axis: Axis) -> CGFloat {
 		get {
@@ -32,4 +38,5 @@ extension CGSize {
 			}
 		}
 	}
+	#endif
 }

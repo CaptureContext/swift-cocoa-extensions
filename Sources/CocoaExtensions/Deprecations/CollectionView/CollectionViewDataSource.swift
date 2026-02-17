@@ -1,33 +1,34 @@
 #if canImport(UIKit) && !os(watchOS)
 import CocoaAliases
-import FunctionalClosures
 
 @available(*, deprecated, message: "Consider migrating to DiffableDataSource")
 public class CollectionViewDataSource<
 	CellView: CocoaView,
 	SupplimentaryView: CocoaView
 >: NSObject, CocoaCollectionViewDataSource {
-	@DataSource<Void, Int>
-	public var numberOfSections = .init { 0 }
-	
-	@DataSource<Int, Int>
-	public var numberOfItemsInSection = .init { _ in 0 }
-	
-	@Handler2<CollectionViewCell<CellView>, IndexPath>
-	public var reconfigureCell
-	
-	@Handler3<CollectionReusableView<SupplimentaryView>, String, IndexPath>
-	public var reconfigureSupplimentaryView
-	
+	public var numberOfSections: () -> Int = { 0 }
+	public var numberOfItemsInSection: (Int) -> Int = { _ in 0 }
+
+	public var reconfigureCell: (
+		CollectionViewCell<CellView>,
+		IndexPath
+	) -> Void = { _, _ in }
+
+	public var reconfigureSupplimentaryView: (
+		CollectionReusableView<SupplimentaryView>,
+		String,
+		IndexPath
+	) -> Void = { _, _, _ in }
+
 	public func collectionView(
 		_ collectionView: CocoaCollectionView,
 		numberOfItemsInSection section: Int
 	) -> Int {
-		return $numberOfItemsInSection(section)
+		return numberOfItemsInSection(section)
 	}
 	
 	public func numberOfSections(in collectionView: CocoaCollectionView) -> Int {
-		return _numberOfSections()
+		return numberOfSections()
 	}
 	
 	public func collectionView(
@@ -35,9 +36,13 @@ public class CollectionViewDataSource<
 		cellForItemAt indexPath: IndexPath
 	) -> CocoaCollectionViewCell {
 		let cell = collectionView
-			.dequeueReusableCell(CollectionViewCell<CellView>.self, at: indexPath)
+			.dequeueReusableCell(
+				CollectionViewCell<CellView>.self,
+				at: indexPath
+			)
 			.or(CollectionViewCell<CellView>())
-		_reconfigureCell(cell, indexPath)
+
+		reconfigureCell(cell, indexPath)
 		return cell
 	}
 	
@@ -46,14 +51,16 @@ public class CollectionViewDataSource<
 		viewForSupplementaryElementOfKind kind: String,
 		at indexPath: IndexPath
 	) -> CocoaCollectionReusableView {
-		let view = collectionView.dequeueReusableSupplementaryView(
-			ofKind: kind,
-			withReuseIdentifier: CollectionReusableView<SupplimentaryView>.reuseID,
-			for: indexPath
-		)
+		let view = collectionView
+			.dequeueReusableSupplementaryView(
+				ofKind: kind,
+				withReuseIdentifier: CollectionReusableView<SupplimentaryView>.reuseID,
+				for: indexPath
+			)
 			.as(CollectionReusableView<SupplimentaryView>.self)
 			.or(CollectionReusableView<SupplimentaryView>())
-		_reconfigureSupplimentaryView(view, kind, indexPath)
+
+		reconfigureSupplimentaryView(view, kind, indexPath)
 		return view
 	}
 }

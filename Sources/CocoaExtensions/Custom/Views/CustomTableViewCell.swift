@@ -1,4 +1,4 @@
-#if !os(watchOS)
+#if !os(watchOS) && canImport(Darwin)
 import CocoaAliases
 
 open class CustomTableViewCell: CocoaTableViewCell, CustomCocoaViewProtocol {
@@ -22,10 +22,7 @@ open class CustomTableViewCell: CocoaTableViewCell, CustomCocoaViewProtocol {
 		self._init()
 	}
 
-	open func _init() {
-		_nonisolatedInit()
-	}
-
-	open func _nonisolatedInit() {}
+	/// Only for `override` purposes, do not call directly
+	open func _init() {}
 }
 #endif

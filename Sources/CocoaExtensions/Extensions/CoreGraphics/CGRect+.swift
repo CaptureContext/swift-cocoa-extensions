@@ -1,4 +1,9 @@
+#if canImport(CoreGraphics)
+import CoreGraphics
+
+#if canImport(SwiftUI)
 import SwiftUI
+#endif
 
 extension CGRect {
 	@inlinable
@@ -16,6 +21,7 @@ extension CGRect {
 		)
 	}
 
+	#if canImport(SwiftUI)
 	@inlinable
 	public subscript(max axis: Axis) -> CGFloat {
 		switch axis {
@@ -39,4 +45,6 @@ extension CGRect {
 		case .horizontal: return midX
 		}
 	}
+	#endif
 }
+#endif

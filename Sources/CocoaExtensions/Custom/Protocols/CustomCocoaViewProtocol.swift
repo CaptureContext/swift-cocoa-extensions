@@ -1,6 +1,6 @@
-#if !os(watchOS)
+#if !os(watchOS) && canImport(Darwin)
 import CocoaAliases
 
 @MainActor
-public protocol CustomCocoaViewProtocol: CocoaView, CustomNSObjectProtocol {}
+public protocol CustomCocoaViewProtocol: CocoaView, CustomCocoaObjectProtocol {}
 #endif

@@ -1,3 +1,4 @@
+#if canImport(Darwin)
 #if canImport(SwiftUI) && !os(watchOS)
 import DeclarativeConfiguration
 import CocoaAliases
@@ -19,6 +20,13 @@ open class CustomHostingController<Content: View>:
 {
 	private(set) open var isVisible = false
 
+	@available(
+		*, deprecated,
+		message: """
+		This protocol is deprecated and will be removed. \
+		It was used for `combine-cocoa-navigation`
+		"""
+	)
 	public var overrideNavigationController: () -> UINavigationController? = { nil }
 
 	override open var navigationController: UINavigationController? {
@@ -110,11 +118,7 @@ open class CustomHostingController<Content: View>:
 	}
 
 	/// Only for `override` purposes, do not call directly
-	open func _init() {
-		_nonisolatedInit()
-	}
-
-	open func _nonisolatedInit() {}
+	open func _init() {}
 }
 
 #elseif canImport(AppKit)
@@ -213,11 +217,8 @@ open class CustomHostingController<Content: View>:
 	}
 
 	/// Only for `override` purposes, do not call directly
-	open func _init() {
-		_nonisolatedInit()
-	}
-
-	open func _nonisolatedInit() {}
+	open func _init() {}
 }
+#endif
 #endif
 #endif

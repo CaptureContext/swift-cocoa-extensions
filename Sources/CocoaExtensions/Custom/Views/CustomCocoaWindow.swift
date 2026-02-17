@@ -1,6 +1,5 @@
-#if !os(watchOS)
+#if !os(watchOS) && canImport(Darwin)
 import CocoaAliases
-import FunctionalClosures
 
 #if os(macOS)
 open class CustomCocoaWindow: CocoaWindow, CustomCocoaWindowProtocol {
@@ -27,11 +26,7 @@ open class CustomCocoaWindow: CocoaWindow, CustomCocoaWindowProtocol {
 		self._init()
 	}
 	
-	open func _init() {
-		_nonisolatedInit()
-	}
-
-	open func _nonisolatedInit() {}
+	open func _init() {}
 }
 #elseif canImport(UIKit)
 open class CustomCocoaWindow: CocoaWindow, CustomCocoaWindowProtocol {
@@ -50,11 +45,7 @@ open class CustomCocoaWindow: CocoaWindow, CustomCocoaWindowProtocol {
 		self._init()
 	}
 	
-	open func _init() {
-		_nonisolatedInit()
-	}
-
-	open func _nonisolatedInit() {}
+	open func _init() {}
 }
 #endif
 #endif

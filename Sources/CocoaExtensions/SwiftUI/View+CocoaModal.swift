@@ -1,3 +1,4 @@
+#if canImport(Darwin)
 import SwiftUI
 import AssociatedObjects
 import DeclarativeConfiguration
@@ -292,4 +293,5 @@ public struct EnvironmentReader<Content: View>: View {
 	}
 }
 
+#endif
 #endif

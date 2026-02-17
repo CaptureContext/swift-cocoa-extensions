@@ -1,3 +1,4 @@
+#if canImport(SwiftUI)
 import SwiftUI
 
 extension Axis.Set {
@@ -24,3 +25,4 @@ extension Axis {
 		}
 	}
 }
+#endif

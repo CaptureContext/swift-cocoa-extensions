@@ -1,11 +1,11 @@
+#if canImport(Darwin)
 #if !os(watchOS)
 import CocoaAliases
-import FunctionalClosures
 
 @MainActor
 public protocol CustomCocoaViewControllerProtocol:
 	CocoaViewController,
-	CustomNSObjectProtocol
+	CustomCocoaObjectProtocol
 {
 	var isVisible: Bool { get }
 
@@ -33,4 +33,5 @@ public protocol CustomCocoaViewControllerProtocol:
 	@available(*, deprecated, message: "Consider using publisher-based interception instead")
 	var onViewDidLayout: (() -> Void)? { get set }
 }
+#endif
 #endif

@@ -1,3 +1,4 @@
+#if canImport(Darwin)
 import CocoaAliases
 
 public protocol SupplimentaryItemKindProvidingType {
@@ -175,4 +176,5 @@ extension CocoaCollectionView {
 		#endif
 	}
 }
+#endif
 #endif

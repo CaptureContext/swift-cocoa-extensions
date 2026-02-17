@@ -1,3 +1,4 @@
+#if canImport(Combine) && canImport(Darwin)
 import Combine
 import CocoaAliases
 
@@ -65,4 +66,5 @@ extension PrefetchingDataSource: NSCollectionViewPrefetching {
 		cancelPrefetchRequestSubject.send(indexPaths)
 	}
 }
+#endif
 #endif

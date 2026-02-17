@@ -1,6 +1,5 @@
-#if os(macOS)
+#if os(macOS) && canImport(Darwin)
 import CocoaAliases
-import FunctionalClosures
 import FoundationExtensions
 import CocoaAliases
 

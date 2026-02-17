@@ -1,11 +1,10 @@
 #if os(macOS)
 import CocoaAliases
-import FunctionalClosures
 
 @MainActor
 public protocol CustomCocoaWindowControllerProtocol:
 	NSWindowController,
-	CustomNSObjectProtocol
+	CustomCocoaObjectProtocol
 {
 	@available(*, deprecated, message: "Consider using publisher-based interception instead")
 	var onWindowWillLoad: (() -> Void)? { get set }

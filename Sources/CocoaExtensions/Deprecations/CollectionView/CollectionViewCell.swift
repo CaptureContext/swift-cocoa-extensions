@@ -8,8 +8,7 @@ public final class CollectionViewCell<
 	@available(*, deprecated, message: "Use cell.content instead")
 	public override var contentView: UIView { super.contentView }
 
-	@Handler1<Content>
-	public var onPrepareForReuse
+	public var onPrepareForReuse: ((Content) -> Void)?
 
 	public var content: Content = .init() {
 		didSet {
@@ -23,7 +22,7 @@ public final class CollectionViewCell<
 
 	public override func prepareForReuse() {
 		super.prepareForReuse()
-		_onPrepareForReuse(content)
+		onPrepareForReuse?(content)
 	}
 
 	public override func _init() {

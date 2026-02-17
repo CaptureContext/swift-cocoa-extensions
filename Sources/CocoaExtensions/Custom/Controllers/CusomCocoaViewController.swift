@@ -1,3 +1,4 @@
+#if canImport(Darwin)
 import DeclarativeConfiguration
 import CocoaAliases
 
@@ -10,6 +11,13 @@ open class CustomCocoaViewController:
 {
 	private(set) open var isVisible = false
 
+	@available(
+		*, deprecated,
+		message: """
+		This protocol is deprecated and will be removed. \
+		It was used for `combine-cocoa-navigation`
+		"""
+	)
 	public var overrideNavigationController: () -> UINavigationController? = { nil }
 
 	override open var navigationController: UINavigationController? {
@@ -100,11 +108,7 @@ open class CustomCocoaViewController:
 	}
 	
 	/// Only for `override` purposes, do not call directly
-	open func _init() {
-		_nonisolatedInit()
-	}
-
-	open func _nonisolatedInit() {}
+	open func _init() {}
 }
 #elseif canImport(AppKit)
 open class CustomCocoaViewController:
@@ -195,11 +199,9 @@ open class CustomCocoaViewController:
 		super.init(coder: coder)
 		self._init()
 	}
+	
 	/// Only for `override` purposes, do not call directly
-	open func _init() {
-		_nonisolatedInit()
-	}
-
-	open func _nonisolatedInit() {}
+	open func _init() {}
 }
+#endif
 #endif
