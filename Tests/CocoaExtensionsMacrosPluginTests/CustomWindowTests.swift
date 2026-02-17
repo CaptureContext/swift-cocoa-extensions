@@ -1,20 +1,16 @@
-import XCTest
+import Testing
 import MacroTesting
 import CocoaExtensionsMacrosPlugin
 
-final class CustomWindowTests: XCTestCase {
-	override func invokeTest() {
-		withMacroTesting(
-			isRecording: false,
-			macros: [
-				"CustomWindow": CustomWindowMacro.self
-			]
-		) {
-			super.invokeTest()
-		}
-	}
-
-	func testAttachmentToNonUntypedProperty() {
+@Suite(
+	.macros(
+		["CustomWindow": CustomWindowMacro.self],
+		record: false
+	)
+)
+struct CustomWindowTests {
+	@Test
+	func attachmentToNonUntypedProperty() {
 		assertMacro {
 			"""
 			class WindowController: CustomCocoaWindowController {
@@ -33,7 +29,8 @@ final class CustomWindowTests: XCTestCase {
 		}
 	}
 
-	func testAttachmentToNonOptionalProperty() {
+	@Test
+	func attachmentToNonOptionalProperty() {
 		assertMacro {
 			"""
 			class WindowController {
@@ -77,7 +74,8 @@ final class CustomWindowTests: XCTestCase {
 		}
 	}
 
-	func testAttachment() {
+	@Test
+	func attachment() {
 		assertMacro {
 			"""
 			class WindowController {
@@ -105,7 +103,8 @@ final class CustomWindowTests: XCTestCase {
 		}
 	}
 
-	func testAttachmentWithInitialValue() {
+	@Test
+	func attachmentWithInitialValue() {
 		assertMacro {
 			"""
 			class WindowController {
@@ -133,7 +132,8 @@ final class CustomWindowTests: XCTestCase {
 		}
 	}
 
-	func testOpenAttachment() {
+	@Test
+	func openAttachment() {
 		assertMacro {
 			"""
 			class WindowController {

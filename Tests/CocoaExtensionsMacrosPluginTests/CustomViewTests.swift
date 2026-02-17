@@ -1,20 +1,16 @@
-import XCTest
+import Testing
 import MacroTesting
 import CocoaExtensionsMacrosPlugin
 
-final class CustomViewTests: XCTestCase {
-	override func invokeTest() {
-		withMacroTesting(
-			record: false,
-			macros: [
-				"CustomView": CustomViewMacro.self
-			]
-		) {
-			super.invokeTest()
-		}
-	}
-
-	func testAttachmentToNonUntypedProperty() {
+@Suite(
+	.macros(
+		["CustomView": CustomViewMacro.self],
+		record: false
+	)
+)
+struct CustomViewTests {
+	@Test
+	func attachmentToNonUntypedProperty() {
 		assertMacro {
 			"""
 			class ViewController: CustomCocoaViewController {
@@ -32,8 +28,8 @@ final class CustomViewTests: XCTestCase {
 			"""
 		}
 	}
-
-	func testAttachmentToNonOptionalProperty() {
+	@Test
+	func attachmentToNonOptionalProperty() {
 		assertMacro {
 			"""
 			class ViewController: CustomCocoaViewController {
@@ -77,7 +73,8 @@ final class CustomViewTests: XCTestCase {
 		}
 	}
 
-	func testAttachment() {
+	@Test
+	func attachment() {
 		assertMacro {
 			"""
 			class ViewController: CustomCocoaViewController {
@@ -105,7 +102,8 @@ final class CustomViewTests: XCTestCase {
 		}
 	}
 
-	func testAttachmentWithInitialValue() {
+	@Test
+	func attachmentWithInitialValue() {
 		assertMacro {
 			"""
 			class ViewController: CustomCocoaViewController {
@@ -133,7 +131,8 @@ final class CustomViewTests: XCTestCase {
 		}
 	}
 
-	func testAttachmentWithTypedInitialValue() {
+	@Test
+	func attachmentWithTypedInitialValue() {
 		assertMacro {
 			"""
 			class ViewController: CustomCocoaViewController {
@@ -161,7 +160,8 @@ final class CustomViewTests: XCTestCase {
 		}
 	}
 
-	func testOpenAttachment() {
+	@Test
+	func openAttachment() {
 		assertMacro {
 			"""
 			class ViewController: CustomCocoaViewController {

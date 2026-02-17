@@ -1,9 +1,13 @@
-import XCTest
+#if canImport(Darwin)
+import Testing
 @testable import CocoaExtensionsMacros
 
 #if os(macOS)
-final class CustomWindowTests: XCTestCase {
-	func testCustomWindow() {
+@MainActor
+@Suite
+struct CustomWindowTests {
+	@Test
+	func customWindow() {
 		// Should compile
 		class Controller: CustomCocoaWindowController {
 			@CustomWindow
@@ -12,7 +16,8 @@ final class CustomWindowTests: XCTestCase {
 
 		let controller = Controller()
 		controller.loadWindow()
-		XCTAssertEqual(controller.window, controller.managedWindow)
+		#expect(controller.window === controller.managedWindow)
 	}
 }
+#endif
 #endif

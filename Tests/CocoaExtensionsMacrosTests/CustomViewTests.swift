@@ -1,16 +1,21 @@
-import XCTest
+#if canImport(Darwin)
+import Testing
 @testable import CocoaExtensionsMacros
 
 #if !os(watchOS)
-final class CustomViewTests: XCTestCase {
-	func testCustomView() throws {
+@MainActor
+@Suite
+struct CustomViewTests {
+	@Test
+	func customView() throws {
 		class Controller: CustomCocoaViewController {
 			@CustomView
 			var contentView: CustomCocoaView!
 		}
 
 		let controller = Controller()
-		XCTAssertEqual(controller.view, controller.contentView)
+		#expect(controller.view === controller.contentView)
 	}
 }
+#endif
 #endif

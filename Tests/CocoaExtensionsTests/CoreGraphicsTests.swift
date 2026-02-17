@@ -1,24 +1,31 @@
-import XCTest
+#if canImport(Darwin)
+import Testing
 @testable import CocoaExtensions
 
-final class CoreGraphicsTests: XCTestCase {
-	func testCGSize_square() {
-		XCTAssertEqual(CGSize.square(0), CGSize.zero)
-		XCTAssertEqual(CGSize.square(100), CGSize(width: 100, height: 100))
+@Suite
+struct CoreGraphicsTests {
+	@Test
+	func cgSize_square() {
+		#expect(CGSize.square(0) == CGSize.zero)
+		#expect(CGSize.square(100) == CGSize(width: 100, height: 100))
 	}
 
-	func testCGSize_initWithPoint() {
-		XCTAssertEqual(CGSize(CGPoint.zero), CGSize.zero)
-		XCTAssertEqual(CGSize(CGPoint(x: 100, y: 100)), CGSize(width: 100, height: 100))
+	@Test
+	func cgSize_initWithPoint() {
+		#expect(CGSize(CGPoint.zero) == CGSize.zero)
+		#expect(CGSize(CGPoint(x: 100, y: 100)) == CGSize(width: 100, height: 100))
 	}
 
-	func testCGPoint_initWithSize() {
-		XCTAssertEqual(CGPoint(CGSize.zero), CGPoint.zero)
-		XCTAssertEqual(CGPoint(CGSize(width: 100, height: 100)), CGPoint(x: 100, y: 100))
+	@Test
+	func cgPoint_initWithSize() {
+		#expect(CGPoint(CGSize.zero) == CGPoint.zero)
+		#expect(CGPoint(CGSize(width: 100, height: 100)) == CGPoint(x: 100, y: 100))
 	}
 
-	func testCGSize_center() {
-		XCTAssertEqual(CGSize.zero.center, CGPoint.zero)
-		XCTAssertEqual(CGSize(width: 100, height: 100).center, CGPoint(x: 50, y: 50))
+	@Test
+	func cgSize_center() {
+		#expect(CGSize.zero.center == CGPoint.zero)
+		#expect(CGSize(width: 100, height: 100).center == CGPoint(x: 50, y: 50))
 	}
 }
+#endif
