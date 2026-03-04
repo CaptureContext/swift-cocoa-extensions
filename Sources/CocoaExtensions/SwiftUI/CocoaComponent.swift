@@ -22,15 +22,21 @@ public struct _CocoaViewRepresentable<Content: CocoaView, Coordinator>: CocoaVie
 	public let update: (Content, Context) -> Void
 
 	@_spi(Internals)
+	public let sizeThatFits: (_ProposedViewSizeDTO, Content, Context) -> CGSize?
+
+	@_spi(Internals)
 	public let coordinator: () -> Coordinator
+
 
 	@_spi(Internals)
 	public init(
 		content: @escaping (Context) -> Content,
 		update: @escaping (Content, Context) -> Void,
+		sizeThatFits: @escaping (_ProposedViewSizeDTO, Content, Context) -> CGSize? = { _, _, _ in nil },
 		coordinator: @escaping () -> Coordinator
 	) {
 		self.content = content
+		self.sizeThatFits = sizeThatFits
 		self.update = update
 		self.coordinator = coordinator
 	}
@@ -41,6 +47,19 @@ public struct _CocoaViewRepresentable<Content: CocoaView, Coordinator>: CocoaVie
 
 	public func updateCocoaView(_ content: Content, context: Context) {
 		update(content, context)
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public func sizeThatFits(
+		_ proposal: ProposedViewSize,
+		cocoaView content: Content,
+		context: Context
+	) -> CGSize? {
+		sizeThatFits(
+			.init(proposal),
+			content,
+			context
+		)
 	}
 
 	public func makeCoordinator() -> Coordinator {
@@ -56,16 +75,21 @@ public struct _CocoaViewControllerRepresentable<Content: CocoaViewController, Co
 	public let update: (Content, Context) -> Void
 
 	@_spi(Internals)
+	public let sizeThatFits: (_ProposedViewSizeDTO, Content, Context) -> CGSize?
+
+	@_spi(Internals)
 	public let coordinator: () -> Coordinator
 
 	@_spi(Internals)
 	public init(
 		content: @escaping (Context) -> Content,
 		update: @escaping (Content, Context) -> Void,
+		sizeThatFits: @escaping (_ProposedViewSizeDTO, Content, Context) -> CGSize? = { _, _, _ in nil },
 		coordinator: @escaping () -> Coordinator
 	) {
 		self.content = content
 		self.update = update
+		self.sizeThatFits = sizeThatFits
 		self.coordinator = coordinator
 	}
 
@@ -77,10 +101,25 @@ public struct _CocoaViewControllerRepresentable<Content: CocoaViewController, Co
 		update(content, context)
 	}
 
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public func sizeThatFits(
+		_ proposal: ProposedViewSize,
+		cocoaViewController content: Content,
+		context: Context
+	) -> CGSize? {
+		sizeThatFits(
+			.init(proposal),
+			content,
+			context
+		)
+	}
+
 	public func makeCoordinator() -> Coordinator {
 		coordinator()
 	}
 }
+
+// MARK: - View initializers
 
 extension CocoaComponent {
 	public init<
@@ -163,6 +202,110 @@ extension CocoaComponent {
 		)
 	}
 }
+
+// MARK: Size-providing
+
+extension CocoaComponent {
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<
+		Content: CocoaView,
+		Coordinator
+	>(
+		content: @escaping (Representable.Context) -> Content,
+		update: @escaping (Content, Representable.Context) -> Void,
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?,
+		coordinator: @escaping () -> Coordinator
+	) where Representable == _CocoaViewRepresentable<Content, Coordinator> {
+		self.init(content: {
+			Representable(
+				content: content,
+				update: update,
+				sizeThatFits: { sizeThatFits($0.proposal, $1, $2) },
+				coordinator: coordinator
+			)
+		})
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<
+		Content: CocoaView,
+		Coordinator
+	>(
+		content: @escaping () -> Content,
+		update: @escaping (Content, Representable.Context) -> Void,
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?,
+		coordinator: @escaping () -> Coordinator
+	) where Representable == _CocoaViewRepresentable<Content, Coordinator> {
+		self.init(
+			content: { _ in content() },
+			update: update,
+			sizeThatFits: sizeThatFits,
+			coordinator: coordinator
+		)
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<
+		Content: CocoaView,
+		Coordinator
+	>(
+		_ content: @escaping @autoclosure () -> Content,
+		update: @escaping (Content, Representable.Context) -> Void,
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?,
+		coordinator: @escaping () -> Coordinator
+	) where Representable == _CocoaViewRepresentable<Content, Coordinator> {
+		self.init(
+			content: content,
+			update: update,
+			sizeThatFits: sizeThatFits,
+			coordinator: coordinator
+		)
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<Content: CocoaView>(
+		content: @escaping (Representable.Context) -> Content,
+		update: @escaping (Content, Representable.Context) -> Void = { _, _ in },
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?
+	) where Representable == _CocoaViewRepresentable<Content, Void> {
+		self.init(
+			content: content,
+			update: update,
+			sizeThatFits: sizeThatFits,
+			coordinator: {}
+		)
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<Content: CocoaView>(
+		content: @escaping () -> Content,
+		update: @escaping (Content, Representable.Context) -> Void = { _, _ in },
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?
+	) where Representable == _CocoaViewRepresentable<Content, Void> {
+		self.init(
+			content: content,
+			update: update,
+			sizeThatFits: sizeThatFits,
+			coordinator: {}
+		)
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<Content: CocoaView>(
+		_ content: @escaping @autoclosure () -> Content,
+		update: @escaping (Content, Representable.Context) -> Void = { _, _ in },
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?
+	) where Representable == _CocoaViewRepresentable<Content, Void> {
+		self.init(
+			content: content,
+			update: update,
+			sizeThatFits: sizeThatFits,
+			coordinator: {}
+		)
+	}
+}
+
+// MARK: - Controller initializers
 
 extension CocoaComponent {
 	public init<
@@ -243,6 +386,132 @@ extension CocoaComponent {
 			update: update,
 			coordinator: {}
 		)
+	}
+}
+
+// MARK: Size-providing
+
+extension CocoaComponent {
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<
+		Content: CocoaViewController,
+		Coordinator
+	>(
+		content: @escaping (Representable.Context) -> Content,
+		update: @escaping (Content, Representable.Context) -> Void,
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?,
+		coordinator: @escaping () -> Coordinator
+	) where Representable == _CocoaViewControllerRepresentable<Content, Coordinator> {
+		self.init(content: {
+			Representable(
+				content: content,
+				update: update,
+				sizeThatFits: { sizeThatFits($0.proposal, $1, $2) },
+				coordinator: coordinator
+			)
+		})
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<
+		Content: CocoaViewController,
+		Coordinator
+	>(
+		content: @escaping () -> Content,
+		update: @escaping (Content, Representable.Context) -> Void = { _, _ in },
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?,
+		coordinator: @escaping () -> Coordinator
+	) where Representable == _CocoaViewControllerRepresentable<Content, Void> {
+		self.init(
+			content: { _ in content() },
+			update: update,
+			sizeThatFits: sizeThatFits,
+			coordinator: {}
+		)
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<
+		Content: CocoaViewController,
+		Coordinator
+	>(
+		_ content: @escaping @autoclosure () -> Content,
+		update: @escaping (Content, Representable.Context) -> Void,
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?,
+		coordinator: @escaping () -> Coordinator
+	) where Representable == _CocoaViewControllerRepresentable<Content, Coordinator> {
+		self.init(
+			content: { _ in content() },
+			update: update,
+			sizeThatFits: sizeThatFits,
+			coordinator: coordinator
+		)
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<Content: CocoaViewController>(
+		content: @escaping (Representable.Context) -> Content,
+		update: @escaping (Content, Representable.Context) -> Void = { _, _ in },
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?
+	) where Representable == _CocoaViewControllerRepresentable<Content, Void> {
+		self.init(
+			content: content,
+			update: update,
+			sizeThatFits: sizeThatFits,
+			coordinator: {}
+		)
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<Content: CocoaViewController>(
+		_ content: @escaping () -> Content,
+		update: @escaping (Content, Representable.Context) -> Void = { _, _ in },
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?
+	) where Representable == _CocoaViewControllerRepresentable<Content, Void> {
+		self.init(
+			content: content,
+			update: update,
+			sizeThatFits: sizeThatFits,
+			coordinator: {}
+		)
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init<Content: CocoaViewController>(
+		_ content: @escaping @autoclosure () -> Content,
+		update: @escaping (Content, Representable.Context) -> Void = { _, _ in },
+		sizeThatFits: @escaping (ProposedViewSize, Content, Representable.Context) -> CGSize?
+	) where Representable == _CocoaViewControllerRepresentable<Content, Void> {
+		self.init(
+			content: content,
+			update: update,
+			sizeThatFits: sizeThatFits,
+			coordinator: {}
+		)
+	}
+}
+
+// MARK: - DTOs
+
+@_spi(Internals)
+public struct _ProposedViewSizeDTO {
+	public let width: CGFloat?
+	public let height: CGFloat?
+
+	public init(width: CGFloat?, height: CGFloat?) {
+		self.width = width
+		self.height = height
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	public init(_ proposal: ProposedViewSize) {
+		self.width = proposal.width
+		self.height = proposal.height
+	}
+
+	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+	var proposal: ProposedViewSize {
+		.init(width: width, height: height)
 	}
 }
 
