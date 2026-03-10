@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.1
 
 import PackageDescription
 import CompilerPluginSupport
@@ -29,11 +29,11 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-declarative-configuration.git",
-			.upToNextMinor(from: "0.5.0")
+			.upToNextMinor(from: "0.6.0")
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-foundation-extensions.git",
-			.upToNextMinor(from: "0.6.0")
+			.upToNextMinor(from: "0.7.0")
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-identified-collections.git",
