@@ -25,7 +25,7 @@ let package = Package(
 	dependencies: [
 		.package(
 			url: "https://github.com/capturecontext/cocoa-aliases.git",
-			.upToNextMajor(from: "3.3.0")
+			.upToNextMajor(from: "3.4.0")
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-declarative-configuration.git",
@@ -37,7 +37,7 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-identified-collections.git",
-			.upToNextMajor(from: "1.0.0")
+			.upToNextMajor(from: "1.1.1")
 		),
 		.package(
 			url: "https://github.com/stackotter/swift-macro-toolkit.git",
@@ -45,11 +45,11 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-macro-testing.git",
-			.upToNextMinor(from: "0.6.0")
+			.upToNextMinor(from: "0.6.5")
 		),
 		.package(
 			url: "https://github.com/pointfreeco/xctest-dynamic-overlay.git",
-			.upToNextMajor(from: "1.8.0")
+			.upToNextMajor(from: "1.9.0")
 		),
 	],
 	targets: [
