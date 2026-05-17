@@ -23,7 +23,7 @@ public struct AnyNSMenuAttachableItem: NSMenuAttachableItem {
 }
 
 @resultBuilder
-public struct MenuItemsBuilder {
+public enum MenuItemsBuilder {
 	public static func buildBlock(
 		_ components: NSMenuAttachableItem...
 	) -> NSMenuAttachableItem {
