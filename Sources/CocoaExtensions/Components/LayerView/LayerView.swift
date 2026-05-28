@@ -7,7 +7,7 @@ open class LayerView<Layer: CALayer>: CustomCocoaView {
 
 	public var onLayout: ((Layer) -> Void)?
 
-	public override func layoutSublayers(of layer: CALayer) {
+	open override func layoutSublayers(of layer: CALayer) {
 		super.layoutSublayers(of: layer)
 		guard actualLayer === layer else { return }
 		onLayout?(actualLayer)
