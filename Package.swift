@@ -25,7 +25,7 @@ let package = Package(
 	dependencies: [
 		.package(
 			url: "https://github.com/capturecontext/cocoa-aliases.git",
-			.upToNextMajor(from: "3.4.0")
+			.upToNextMajor(from: "3.5.0")
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-declarative-configuration.git",
@@ -41,7 +41,7 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/stackotter/swift-macro-toolkit.git",
-			"0.6.0"..<"0.9.0"
+			"0.6.0"..<"0.10.0"
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-macro-testing.git",
