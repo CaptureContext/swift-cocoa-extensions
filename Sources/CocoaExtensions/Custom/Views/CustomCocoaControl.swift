@@ -1,3 +1,4 @@
+#if !os(watchOS) && canImport(Darwin)
 import CocoaAliases
 
 open class CustomCocoaControl: CocoaControl {
@@ -13,3 +14,4 @@ open class CustomCocoaControl: CocoaControl {
 
 	open func _init() {}
 }
+#endif

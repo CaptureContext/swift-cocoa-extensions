@@ -1,3 +1,4 @@
+#if !os(watchOS) && canImport(Darwin)
 import CocoaAliases
 
 open class CustomCocoaCollectionViewFlowLayout: CocoaCollectionViewFlowLayout {
@@ -13,3 +14,4 @@ open class CustomCocoaCollectionViewFlowLayout: CocoaCollectionViewFlowLayout {
 
 	open func _init() {}
 }
+#endif

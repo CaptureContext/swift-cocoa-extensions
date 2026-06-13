@@ -1,4 +1,4 @@
-#if canImport(Darwin) && canImport(CoreGraphics)
+#if canImport(Darwin) && canImport(CoreGraphics) && !os(watchOS)
 import CoreGraphics
 import QuartzCore
 
