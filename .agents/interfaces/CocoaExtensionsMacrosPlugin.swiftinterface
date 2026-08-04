@@ -1,0 +1,31 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.4 (swiftlang-6.4.0.25.4 clang-2100.3.25.1)
+// swift-module-flags: -target arm64-apple-macos12.0 -enable-objc-interop -language-mode 6 -O -enable-experimental-feature DebugDescriptionMacro -module-name CocoaExtensionsMacrosPlugin -package-name swift_cocoa_extensions
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.4
+import MacroToolkit
+import Swift
+import SwiftCompilerPlugin
+import SwiftDiagnostics
+import SwiftSyntax
+import SwiftSyntaxMacros
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public struct CustomViewMacro : CocoaExtensionsMacrosPlugin::CustomPropertyMacro {
+  public static func expansion<_Declaration, _Context>(of node: SwiftSyntax::AttributeSyntax, providingAccessorsOf declaration: _Declaration, in context: _Context) throws -> [SwiftSyntax::AccessorDeclSyntax] where _Declaration : SwiftSyntax::DeclSyntaxProtocol, _Context : SwiftSyntaxMacros::MacroExpansionContext
+  public static func expansion(of node: SwiftSyntax::AttributeSyntax, providingPeersOf declaration: some DeclSyntaxProtocol, in context: some MacroExpansionContext) throws -> [SwiftSyntax::DeclSyntax]
+}
+public struct CustomWindowMacro : CocoaExtensionsMacrosPlugin::CustomPropertyMacro {
+  public static func expansion<_Declaration, _Context>(of node: SwiftSyntax::AttributeSyntax, providingAccessorsOf declaration: _Declaration, in context: _Context) throws -> [SwiftSyntax::AccessorDeclSyntax] where _Declaration : SwiftSyntax::DeclSyntaxProtocol, _Context : SwiftSyntaxMacros::MacroExpansionContext
+  public static func expansion(of node: SwiftSyntax::AttributeSyntax, providingPeersOf declaration: some DeclSyntaxProtocol, in context: some MacroExpansionContext) throws -> [SwiftSyntax::DeclSyntax]
+}
+extension SwiftDiagnostics::Diagnostic : @retroactive Swift::Error {
+}
+public protocol CustomPropertyMacro : SwiftSyntaxMacros::AccessorMacro, SwiftSyntaxMacros::PeerMacro {
+  static var macroName: Swift::String { get }
+}
+extension CocoaExtensionsMacrosPlugin::CustomPropertyMacro {
+  public static var macroName: Swift::String {
+    get
+  }
+}
