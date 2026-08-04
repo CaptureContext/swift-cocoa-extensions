@@ -1,0 +1,673 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.4 (swiftlang-6.4.0.25.4 clang-2100.3.25.1)
+// swift-module-flags: -target arm64-apple-macos12.0 -enable-objc-interop -language-mode 6 -O -enable-experimental-feature DebugDescriptionMacro -module-name CocoaExtensions -package-name swift_cocoa_extensions
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.4
+@_exported import AppKit
+import AssociatedObjects
+import Cocoa
+import CocoaAliases
+import Combine
+import CoreGraphics
+@_exported import DeclarativeConfiguration
+import Foundation
+@_exported import FoundationExtensions
+import IdentifiedCollections
+import QuartzCore
+import Swift
+import SwiftUI
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public protocol NSMenuAttachableItem {
+  @discardableResult
+  func attach(to menu: AppKit::NSMenu) -> [AppKit::NSMenuItem]
+}
+public struct AnyNSMenuAttachableItem : CocoaExtensions::NSMenuAttachableItem {
+  public init(_ item: any CocoaExtensions::NSMenuAttachableItem)
+  public init(attach: @escaping (AppKit::NSMenu) -> [AppKit::NSMenuItem])
+  internal let _attach: (AppKit::NSMenu) -> [AppKit::NSMenuItem]
+  @discardableResult
+  public func attach(to menu: AppKit::NSMenu) -> [AppKit::NSMenuItem]
+}
+@_functionBuilder public enum MenuItemsBuilder {
+  public static func buildBlock(_ components: any CocoaExtensions::NSMenuAttachableItem...) -> any CocoaExtensions::NSMenuAttachableItem
+  public static func buildArray(_ components: [any CocoaExtensions::NSMenuAttachableItem]) -> any CocoaExtensions::NSMenuAttachableItem
+  public static func buildOptional(_ component: (any CocoaExtensions::NSMenuAttachableItem)?) -> any CocoaExtensions::NSMenuAttachableItem
+  public static func buildEither(first component: any CocoaExtensions::NSMenuAttachableItem) -> any CocoaExtensions::NSMenuAttachableItem
+  public static func buildEither(second component: any CocoaExtensions::NSMenuAttachableItem) -> any CocoaExtensions::NSMenuAttachableItem
+  public static func buildLimitedAvailability(_ component: any CocoaExtensions::NSMenuAttachableItem) -> any CocoaExtensions::NSMenuAttachableItem
+}
+extension AppKit::NSMenu {
+  convenience public init(_ title: Swift::String? = nil, @CocoaExtensions::MenuItemsBuilder content: () -> any CocoaExtensions::NSMenuAttachableItem)
+}
+extension AppKit::NSMenuItem : CocoaExtensions::NSMenuAttachableItem {
+  @discardableResult
+  public func attach(to menu: AppKit::NSMenu) -> [AppKit::NSMenuItem]
+}
+extension AppKit::NSMenu {
+  convenience public init(title: Swift::String = "Menu", items: [AppKit::NSMenuItem])
+  public func popup(for view: AppKit::NSView)
+}
+extension AppKit::NSMenu {
+  public struct Submenu : CocoaExtensions::NSMenuAttachableItem {
+    public init(_ title: Swift::String, shortcut: AppKit::NSMenuItem.CocoaExtensions::KeyEquivalent? = nil, @CocoaExtensions::MenuItemsBuilder content: () -> any CocoaExtensions::NSMenuAttachableItem)
+    internal let title: Swift::String
+    internal let shortcut: AppKit::NSMenuItem.CocoaExtensions::KeyEquivalent?
+    internal let content: any CocoaExtensions::NSMenuAttachableItem
+    @discardableResult
+    public func attach(to menu: AppKit::NSMenu) -> [AppKit::NSMenuItem]
+  }
+}
+extension AppKit::NSMenuItem {
+  public struct KeyEquivalent : Swift::Equatable {
+    public let value: Swift::String
+    public let modifiers: AppKit::NSEvent.AppKit::ModifierFlags?
+    public init?(_ value: Swift::String, modifiers: AppKit::NSEvent.AppKit::ModifierFlags? = nil)
+    @_implements(Swift::Equatable, ==(_:_:)) public static func __derived_struct_equals(_ a: AppKit::NSMenuItem.CocoaExtensions::KeyEquivalent, _ b: AppKit::NSMenuItem.CocoaExtensions::KeyEquivalent) -> Swift::Bool
+  }
+  convenience public init(_ title: Swift::String, shortcut: AppKit::NSMenuItem.CocoaExtensions::KeyEquivalent? = nil, action: @escaping () -> Swift::Void)
+}
+extension AppKit::NSMenuItem.CocoaExtensions::KeyEquivalent : Swift::ExpressibleByStringLiteral {
+  public init(stringLiteral value: Swift::String)
+  public func modifiers(_ modifiers: AppKit::NSEvent.AppKit::ModifierFlags...) -> AppKit::NSMenuItem.CocoaExtensions::KeyEquivalent
+  public func modifiers(_ modifiers: AppKit::NSEvent.AppKit::ModifierFlags? = nil) -> AppKit::NSMenuItem.CocoaExtensions::KeyEquivalent
+  public typealias ExtendedGraphemeClusterLiteralType = Swift::String
+  public typealias StringLiteralType = Swift::String
+  public typealias UnicodeScalarLiteralType = Swift::String
+}
+extension AppKit::NSEvent.AppKit::ModifierFlags {
+  public static func + (lhs: AppKit::NSEvent.AppKit::ModifierFlags, rhs: Swift::String) -> AppKit::NSMenuItem.CocoaExtensions::KeyEquivalent?
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency final public class CustomToolbar : AppKit::NSToolbar {
+  @_Concurrency::MainActor @preconcurrency @_hasInitialValue public static let defaultIdentifier: Swift::String
+  @_Concurrency::MainActor @preconcurrency @_hasInitialValue final public let customDelegate: CocoaExtensions::CustomToolbar.CocoaExtensions::Delegate
+  @available(*, deprecated, message: "Use `customDelegate` property")
+  @_Concurrency::MainActor @preconcurrency @objc override final public var delegate: (any AppKit::NSToolbarDelegate)? {
+    @objc get
+    @objc set
+  }
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(identifier: AppKit::NSToolbar.AppKit::Identifier)
+  @_Concurrency::MainActor @preconcurrency final public func addItem(_ item: any CocoaExtensions::ToolbarItemProtocol)
+  @_Concurrency::MainActor @preconcurrency final public func insertItem(_ item: any CocoaExtensions::ToolbarItemProtocol, at index: Swift::Int)
+  @_Concurrency::MainActor @preconcurrency final public func addItems(_ items: [any CocoaExtensions::ToolbarItemProtocol])
+  @_Concurrency::MainActor @preconcurrency final public func removeItem(id: AppKit::NSToolbarItem.AppKit::Identifier)
+  @_Concurrency::MainActor @preconcurrency final public func setItems(_ items: [any CocoaExtensions::ToolbarItemProtocol])
+  @available(*, deprecated, message: "Use `insertItem(_:at:)` instead")
+  @_Concurrency::MainActor @preconcurrency @objc override final public func insertItem(withItemIdentifier itemIdentifier: AppKit::NSToolbarItem.AppKit::Identifier, at index: Swift::Int)
+  @available(*, deprecated, message: "Use `removeItem(id:)` instead")
+  @_Concurrency::MainActor @preconcurrency @objc override final public func removeItem(at index: Swift::Int)
+  @objc deinit
+}
+extension CocoaExtensions::CustomToolbar {
+  @objc @_inheritsConvenienceInitializers @_Concurrency::MainActor public class Delegate : ObjectiveC::NSObject, AppKit::NSToolbarDelegate {
+    @_Concurrency::MainActor @_hasInitialValue weak internal var toolbar: CocoaExtensions::CustomToolbar?
+    @_Concurrency::MainActor @_hasInitialValue public var items: IdentifiedCollections::IdentifiedArray<AppKit::NSToolbarItem.AppKit::Identifier, any CocoaExtensions::ToolbarItemProtocol>
+    @_Concurrency::MainActor @preconcurrency @objc public func toolbar(_ toolbar: AppKit::NSToolbar, itemForItemIdentifier itemIdentifier: AppKit::NSToolbarItem.AppKit::Identifier, willBeInsertedIntoToolbar flag: Swift::Bool) -> AppKit::NSToolbarItem?
+    @_Concurrency::MainActor @preconcurrency @objc public func toolbarDefaultItemIdentifiers(_ toolbar: AppKit::NSToolbar) -> [AppKit::NSToolbarItem.AppKit::Identifier]
+    @_Concurrency::MainActor @preconcurrency @objc public func toolbarAllowedItemIdentifiers(_ toolbar: AppKit::NSToolbar) -> [AppKit::NSToolbarItem.AppKit::Identifier]
+    @_Concurrency::MainActor @preconcurrency @objc public func toolbarSelectableItemIdentifiers(_ toolbar: AppKit::NSToolbar) -> [AppKit::NSToolbarItem.AppKit::Identifier]
+    @_Concurrency::MainActor @objc override dynamic public init()
+    @objc deinit
+  }
+}
+@_Concurrency::MainActor @preconcurrency public protocol ToolbarItemProtocol : AppKit::NSToolbarItem {
+  @_Concurrency::MainActor @preconcurrency var onAction: (() -> Swift::Void)? { get }
+  @_Concurrency::MainActor @preconcurrency var isSelectable: Swift::Bool { get }
+}
+extension CocoaExtensions::ToolbarItemProtocol {
+  @_Concurrency::MainActor @preconcurrency public var id: AppKit::NSToolbarItem.AppKit::Identifier {
+    get
+  }
+}
+@_Concurrency::MainActor @preconcurrency public protocol ToolbarItemGroupProtocol : AppKit::NSToolbarItemGroup, CocoaExtensions::ToolbarItemProtocol {
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency public class SidebarTrackingToolbarItem : AppKit::NSTrackingSeparatorToolbarItem, CocoaExtensions::ToolbarItemProtocol, @_Concurrency::MainActor Swift::Identifiable {
+  public typealias ID = AppKit::NSToolbarItem.AppKit::Identifier
+  @_Concurrency::MainActor @preconcurrency public var isSelectable: Swift::Bool {
+    get
+  }
+  @_Concurrency::MainActor @preconcurrency convenience public init(_ identifier: AppKit::NSToolbarItem.AppKit::Identifier, config: (CocoaExtensions::SidebarTrackingToolbarItem.DeclarativeConfiguration::Config) -> CocoaExtensions::SidebarTrackingToolbarItem.DeclarativeConfiguration::Config = { $0 })
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(itemIdentifier: AppKit::NSToolbarItem.AppKit::Identifier)
+  @_Concurrency::MainActor @preconcurrency @_hasInitialValue public var onAction: (() -> Swift::Void)?
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency public class ToolbarItem : AppKit::NSToolbarItem, CocoaExtensions::ToolbarItemProtocol, @_Concurrency::MainActor Swift::Identifiable {
+  public typealias ID = AppKit::NSToolbarItem.AppKit::Identifier
+  @_Concurrency::MainActor @preconcurrency @_hasInitialValue public var isSelectable: Swift::Bool
+  @_Concurrency::MainActor @preconcurrency convenience public init(_ identifier: AppKit::NSToolbarItem.AppKit::Identifier, config: (CocoaExtensions::ToolbarItem.DeclarativeConfiguration::Config) -> CocoaExtensions::ToolbarItem.DeclarativeConfiguration::Config = { $0 })
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(itemIdentifier: AppKit::NSToolbarItem.AppKit::Identifier)
+  @_Concurrency::MainActor @preconcurrency @_hasInitialValue public var onAction: (() -> Swift::Void)?
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency public class ToolbarItemGroup : AppKit::NSToolbarItemGroup, CocoaExtensions::ToolbarItemGroupProtocol, @_Concurrency::MainActor Swift::Identifiable {
+  public typealias ID = AppKit::NSToolbarItem.AppKit::Identifier
+  @_Concurrency::MainActor @preconcurrency public var isSelectable: Swift::Bool {
+    get
+  }
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public var subitems: [AppKit::NSToolbarItem] {
+    @objc get
+    @objc set
+  }
+  @_Concurrency::MainActor @preconcurrency convenience public init(_ identifier: AppKit::NSToolbarItem.AppKit::Identifier, subitems: [any CocoaExtensions::ToolbarItemProtocol] = [], config: (CocoaExtensions::ToolbarItemGroup.DeclarativeConfiguration::Config) -> CocoaExtensions::ToolbarItemGroup.DeclarativeConfiguration::Config = { $0 })
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(itemIdentifier: AppKit::NSToolbarItem.AppKit::Identifier)
+  @_Concurrency::MainActor @preconcurrency @_hasInitialValue public var onAction: (() -> Swift::Void)?
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomCocoaViewController : CocoaAliases::CocoaViewController, CocoaExtensions::CustomCocoaViewControllerProtocol {
+  @_hasStorage @_Concurrency::MainActor @_hasInitialValue open var isVisible: Swift::Bool {
+    get
+  }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onDismiss: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidLoad: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewWillAppear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidAppear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewWillDisappear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidDisappear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewWillLayout: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidLayout: (() -> Swift::Void)?
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func loadView()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidLoad()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewWillAppear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidAppear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewWillDisappear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidDisappear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewWillLayout()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidLayout()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func dismiss(_ sender: Any?)
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift::String?, bundle nibBundleOrNil: Foundation::Bundle?)
+  @_Concurrency::MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation::NSCoder)
+  @_Concurrency::MainActor open func _init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomCocoaWindowController : AppKit::NSWindowController, CocoaExtensions::CustomCocoaWindowControllerProtocol {
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onWindowWillLoad: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onWindowDidLoad: (() -> Swift::Void)?
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(window: CocoaAliases::CocoaWindow?)
+  @_Concurrency::MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation::NSCoder)
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func loadWindow()
+  @_Concurrency::MainActor open func _init()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func windowWillLoad()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func windowDidLoad()
+  @objc deinit
+}
+extension SwiftUI::NSHostingController where Content : Swift::ExpressibleByNilLiteral {
+  @_Concurrency::MainActor @preconcurrency convenience public init()
+}
+@_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomHostingController<Content> : SwiftUI::NSHostingController<Content>, CocoaExtensions::CustomCocoaViewControllerProtocol where Content : SwiftUICore::View {
+  @_hasStorage @_Concurrency::MainActor @_hasInitialValue open var isVisible: Swift::Bool {
+    get
+  }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onDismiss: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidLoad: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewWillAppear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidAppear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewWillDisappear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidDisappear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewWillLayout: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidLayout: (() -> Swift::Void)?
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidLoad()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewWillAppear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidAppear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewWillDisappear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidDisappear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewWillLayout()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidLayout()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func dismiss(_ sender: Any?)
+  @_Concurrency::MainActor @preconcurrency override public init(rootView: Content)
+  @_Concurrency::MainActor @preconcurrency override public init?(coder: Foundation::NSCoder, rootView: Content)
+  @_Concurrency::MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation::NSCoder)
+  @_Concurrency::MainActor open func _init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomCocoaCollectionViewFlowLayout : CocoaAliases::CocoaCollectionViewFlowLayout {
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init()
+  @_Concurrency::MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation::NSCoder)
+  @_Concurrency::MainActor @preconcurrency open func _init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class PrefetchingDataSource : ObjectiveC::NSObject {
+  @objc override dynamic public init()
+  @_hasInitialValue final private let prefetchRequestSubject: Combine::PassthroughSubject<[Foundation::IndexPath], Swift::Never>
+  public var prefetchRequestPublisher: Combine::AnyPublisher<[Foundation::IndexPath], Swift::Never> {
+    get
+  }
+  @_hasInitialValue final private let cancelPrefetchRequestSubject: Combine::PassthroughSubject<[Foundation::IndexPath], Swift::Never>
+  public var cancelPrefetchRequestPublisher: Combine::AnyPublisher<[Foundation::IndexPath], Swift::Never> {
+    get
+  }
+  @objc deinit
+}
+extension CocoaExtensions::PrefetchingDataSource : AppKit::NSCollectionViewPrefetching {
+  @_Concurrency::MainActor @preconcurrency @objc dynamic public func collectionView(_ collectionView: AppKit::NSCollectionView, prefetchItemsAt indexPaths: [Foundation::IndexPath])
+  @_Concurrency::MainActor @preconcurrency @objc dynamic public func collectionView(_ collectionView: AppKit::NSCollectionView, cancelPrefetchingForItemsAt indexPaths: [Foundation::IndexPath])
+}
+@available(*, deprecated, renamed: "CustomCocoaObjectProtocol")
+public typealias CustomNSObjectProtocol = CocoaExtensions::CustomCocoaObjectProtocol
+@_Concurrency::MainActor public protocol CustomCocoaObjectProtocol : ObjectiveC::NSObject {
+  @_Concurrency::MainActor func _init()
+}
+@_Concurrency::MainActor public protocol CustomCocoaViewControllerProtocol : AppKit::NSViewController, CocoaExtensions::CustomCocoaObjectProtocol {
+  @_Concurrency::MainActor var isVisible: Swift::Bool { get }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor var onDismiss: (() -> Swift::Void)? { get set }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor var onViewDidLoad: (() -> Swift::Void)? { get set }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor var onViewWillAppear: (() -> Swift::Void)? { get set }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor var onViewDidAppear: (() -> Swift::Void)? { get set }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor var onViewWillDisappear: (() -> Swift::Void)? { get set }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor var onViewDidDisappear: (() -> Swift::Void)? { get set }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor var onViewWillLayout: (() -> Swift::Void)? { get set }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor var onViewDidLayout: (() -> Swift::Void)? { get set }
+}
+@_Concurrency::MainActor public protocol CustomCocoaViewProtocol : AppKit::NSView, CocoaExtensions::CustomCocoaObjectProtocol {
+}
+@_Concurrency::MainActor public protocol CustomCocoaWindowControllerProtocol : AppKit::NSWindowController, CocoaExtensions::CustomCocoaObjectProtocol {
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor var onWindowWillLoad: (() -> Swift::Void)? { get set }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor var onWindowDidLoad: (() -> Swift::Void)? { get set }
+}
+@_Concurrency::MainActor public protocol CustomCocoaWindowProtocol : CocoaExtensions::CustomCocoaObjectProtocol {
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor var onClose: (() -> Swift::Void)? { get set }
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomCocoaControl : CocoaAliases::CocoaControl {
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation::CGRect)
+  @_Concurrency::MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation::NSCoder)
+  @_Concurrency::MainActor @preconcurrency open func _init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomCocoaView : CocoaAliases::CocoaView, CocoaExtensions::CustomCocoaViewProtocol {
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation::CGRect)
+  @_Concurrency::MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation::NSCoder)
+  @_Concurrency::MainActor open func _init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomCocoaWindow : CocoaAliases::CocoaWindow, CocoaExtensions::CustomCocoaWindowProtocol {
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onClose: (() -> Swift::Void)?
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public func close()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(contentRect: Foundation::NSRect, styleMask style: AppKit::NSWindow.AppKit::StyleMask, backing backingStoreType: AppKit::NSWindow.AppKit::BackingStoreType, defer flag: Swift::Bool)
+  @_Concurrency::MainActor open func _init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomCocoaCollectionView : CocoaAliases::CocoaCollectionView, CocoaExtensions::CustomCocoaViewProtocol {
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation::CGRect)
+  @_Concurrency::MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation::NSCoder)
+  @_Concurrency::MainActor open func _init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomCollectionViewCell : CocoaAliases::CocoaCollectionViewCell, CocoaExtensions::CustomCocoaViewControllerProtocol {
+  @_hasStorage @_Concurrency::MainActor @_hasInitialValue open var isVisible: Swift::Bool {
+    get
+  }
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onDismiss: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidLoad: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewWillAppear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidAppear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewWillDisappear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidDisappear: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewWillLayout: (() -> Swift::Void)?
+  @available(*, deprecated, message: "Consider using publisher-based interception instead")
+  @_Concurrency::MainActor @_hasInitialValue public var onViewDidLayout: (() -> Swift::Void)?
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func loadView()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidLoad()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewWillAppear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidAppear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewWillDisappear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidDisappear()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewWillLayout()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func viewDidLayout()
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic open func dismiss(_ sender: Any?)
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift::String?, bundle nibBundleOrNil: Foundation::Bundle?)
+  @_Concurrency::MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation::NSCoder)
+  @_Concurrency::MainActor open func _init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomCollectionReusableView : CocoaAliases::CocoaCollectionReusableView, CocoaExtensions::CustomCocoaViewProtocol {
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation::CGRect)
+  @_Concurrency::MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation::NSCoder)
+  @_Concurrency::MainActor open func _init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomCocoaTableView : CocoaAliases::CocoaTableView, CocoaExtensions::CustomCocoaViewProtocol {
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation::CGRect)
+  @_Concurrency::MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation::NSCoder)
+  @_Concurrency::MainActor open func _init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency::MainActor @preconcurrency open class CustomTableViewCell : CocoaAliases::CocoaTableViewCell, CocoaExtensions::CustomCocoaViewProtocol {
+  @_Concurrency::MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation::CGRect)
+  @_Concurrency::MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation::NSCoder)
+  @_Concurrency::MainActor open func _init()
+  @objc deinit
+}
+@available(*, deprecated, renamed: "NSMenu.Submenu", message: "Use NSMenu.Submenu instead")
+public typealias NSSubmenu = AppKit::NSMenu.CocoaExtensions::Submenu
+@available(*, deprecated, renamed: "CustomView")
+@propertyWrapper final public class _CustomView<ContentView> where ContentView : AppKit::NSView {
+  @_Concurrency::MainActor public static subscript<Controller>(_enclosingInstance controller: Controller, wrapped wrappedKeyPath: Swift::ReferenceWritableKeyPath<Controller, ContentView>, storage storageKeyPath: Swift::ReferenceWritableKeyPath<Controller, CocoaExtensions::_CustomView<ContentView>>) -> ContentView! where Controller : AppKit::NSViewController {
+    get
+    set
+  }
+  convenience public init()
+  public init(wrappedValue contentView: ContentView!)
+  final private var contentView: () -> ContentView?
+  @available(*, unavailable, message: "@_CustomView propery wrapper can only be applied to classes")
+  final public var wrappedValue: ContentView! {
+    get
+    set
+  }
+  @discardableResult
+  final public func load(to controller: CocoaAliases::CocoaViewController) -> ContentView
+  @discardableResult
+  final public func load(_ contentView: ContentView, to controller: CocoaAliases::CocoaViewController) -> ContentView
+  @objc deinit
+}
+@available(*, deprecated, renamed: "CustomWindow")
+@propertyWrapper final public class _CustomWindow<Window> where Window : AppKit::NSWindow {
+  @_Concurrency::MainActor public static subscript<Controller>(_enclosingInstance controller: Controller, wrapped wrappedKeyPath: Swift::ReferenceWritableKeyPath<Controller, Window>, storage storageKeyPath: Swift::ReferenceWritableKeyPath<Controller, CocoaExtensions::_CustomWindow<Window>>) -> Window! where Controller : AppKit::NSWindowController {
+    get
+    set
+  }
+  convenience public init()
+  public init(wrappedValue window: Window!)
+  final private var managedWindow: () -> Window?
+  @available(*, unavailable, message: "@CustomWindow can only be applied to classes")
+  final public var wrappedValue: Window! {
+    get
+    set
+  }
+  @discardableResult
+  final public func load(to controller: AppKit::NSWindowController) -> Window
+  @discardableResult
+  final public func load(_ managedWindow: Window, to controller: AppKit::NSWindowController) -> Window
+  @objc deinit
+}
+extension AppKit::NSApplication {
+  @_Concurrency::MainActor @preconcurrency public var firstKeyWindow: CocoaAliases::CocoaWindow? {
+    get
+  }
+}
+public protocol SupplimentaryItemKindProvidingType {
+  static var supplimentaryItemKind: Swift::String { get }
+}
+public protocol ReuseIDProvidingType {
+  static var reuseID: Swift::String { get }
+}
+extension CocoaExtensions::ReuseIDProvidingType {
+  public static var reuseID: Swift::String {
+    get
+  }
+}
+extension AppKit::NSView : CocoaExtensions::ReuseIDProvidingType {
+}
+extension AppKit::NSCollectionViewItem : CocoaExtensions::ReuseIDProvidingType {
+}
+extension AppKit::NSTableView {
+  @_Concurrency::MainActor @preconcurrency public func dequeueReusableCell<Cell>(_ type: Cell.Type, at indexPath: Foundation::IndexPath) -> Cell! where Cell : AppKit::NSTableCellView
+}
+extension AppKit::NSCollectionView {
+  @_Concurrency::MainActor @preconcurrency public func registerSupplimentaryItem<SupplimentaryItem>(_ type: SupplimentaryItem.Type?, ofKind kind: Swift::String) where SupplimentaryItem : AppKit::NSView
+  @_Concurrency::MainActor @preconcurrency public func registerSupplimentaryItem<SupplimentaryItem>(_ type: SupplimentaryItem.Type?) where SupplimentaryItem : AppKit::NSView, SupplimentaryItem : CocoaExtensions::SupplimentaryItemKindProvidingType
+  @_Concurrency::MainActor @preconcurrency public func register<Cell>(_ type: Cell.Type?) where Cell : AppKit::NSCollectionViewItem
+  @_Concurrency::MainActor @preconcurrency public func dequeueSupplimentaryItem<SupplimentaryItem>(_ type: SupplimentaryItem.Type = SupplimentaryItem.self, ofKind kind: Swift::String, at indexPath: Foundation::IndexPath) -> SupplimentaryItem! where SupplimentaryItem : CocoaExtensions::ReuseIDProvidingType
+  @_Concurrency::MainActor @preconcurrency public func dequeueSupplimentaryItem<SupplimentaryItem>(_ type: SupplimentaryItem.Type, at indexPath: Foundation::IndexPath) -> SupplimentaryItem! where SupplimentaryItem : AppKit::NSView, SupplimentaryItem : CocoaExtensions::SupplimentaryItemKindProvidingType
+  @_Concurrency::MainActor @preconcurrency public func dequeueReusableCell<Cell>(_ type: Cell.Type = Cell.self, at indexPath: Foundation::IndexPath) -> Cell! where Cell : AppKit::NSCollectionViewItem
+}
+extension AppKit::NSCollectionViewLayout {
+  @_Concurrency::MainActor @preconcurrency public static func compositional(_ layout: CocoaAliases::CocoaCollectionViewCompositionalLayout) -> CocoaAliases::CocoaCollectionViewLayout
+  @_Concurrency::MainActor @preconcurrency public static func flow(_ layout: CocoaAliases::CocoaCollectionViewFlowLayout) -> CocoaAliases::CocoaCollectionViewLayout
+}
+extension SwiftUICore::Axis.SwiftUICore::Set {
+  @inlinable public init(_ axes: SwiftUICore::Axis...) {
+		self = []
+
+		if axes.contains(.vertical) {
+			insert(.vertical)
+		}
+
+		if axes.contains(.horizontal) {
+			insert(.horizontal)
+		}
+	}
+}
+extension SwiftUICore::Axis {
+  @inlinable public var orthoganal: SwiftUICore::Axis {
+    get {
+		switch self {
+		case .horizontal: .vertical
+		case .vertical: .horizontal
+		}
+	}
+  }
+}
+extension CoreFoundation::CGAffineTransform {
+  public var transform3D: QuartzCore::CATransform3D {
+    get
+  }
+}
+extension QuartzCore::CATransform3D {
+  public static var identity: QuartzCore::CATransform3D {
+    get
+  }
+  public static func concat(_ a: QuartzCore::CATransform3D, _ b: QuartzCore::CATransform3D) -> QuartzCore::CATransform3D
+  public static func combine(_ transforms: QuartzCore::CATransform3D...) -> QuartzCore::CATransform3D
+  public static func translate(x: CoreFoundation::CGFloat = 0, y: CoreFoundation::CGFloat = 0, z: CoreFoundation::CGFloat = 0) -> QuartzCore::CATransform3D
+  public static func scale(x: CoreFoundation::CGFloat = 1, y: CoreFoundation::CGFloat = 1, z: CoreFoundation::CGFloat = 1) -> QuartzCore::CATransform3D
+  public static func affine(_ t: CoreFoundation::CGAffineTransform) -> QuartzCore::CATransform3D
+  @inlinable public static func rotate(by angle: CoreFoundation::CGFloat = .pi, x: CoreFoundation::CGFloat = 0, y: CoreFoundation::CGFloat = 0, z: CoreFoundation::CGFloat = 0) -> QuartzCore::CATransform3D {
+		CATransform3DMakeRotation(angle, x, y, z)
+	}
+  @available(*, deprecated, renamed: "rotate(by:x:y:z:)")
+  public static func rotate(angle: CoreFoundation::CGFloat = .pi, x: CoreFoundation::CGFloat = 0, y: CoreFoundation::CGFloat = 0, z: CoreFoundation::CGFloat = 0) -> QuartzCore::CATransform3D
+  public func combined(with transform: QuartzCore::CATransform3D) -> QuartzCore::CATransform3D
+}
+extension CoreGraphics::CGPath {
+  @inlinable public static func create(_ build: (CoreGraphics::CGMutablePath) -> Swift::Void) -> CoreGraphics::CGMutablePath {
+		let path = CGMutablePath()
+		build(path)
+		return path
+	}
+  @inlinable public static func line(from start: CoreFoundation::CGPoint, to end: CoreFoundation::CGPoint) -> CoreGraphics::CGPath {
+		.create { $0.addLine(from: start, to: end) }
+	}
+  @inlinable public static func combine(_ paths: [CoreGraphics::CGPath]) -> CoreGraphics::CGPath {
+		return .create { path in
+			for p in paths {
+				path.addPath(p)
+			}
+		}
+	}
+}
+extension CoreGraphics::CGMutablePath {
+  @inlinable public func addLine(from start: CoreFoundation::CGPoint, to end: CoreFoundation::CGPoint) {
+		move(to: start)
+		addLine(to: end)
+	}
+}
+extension CoreFoundation::CGPoint {
+  @inlinable public init(_ offset: CoreFoundation::CGSize) {
+		self.init(x: offset.width, y: offset.height)
+	}
+  @inlinable public subscript(axis: SwiftUICore::Axis) -> CoreFoundation::CGFloat {
+    get {
+			switch axis {
+			case .vertical: return y
+			case .horizontal: return x
+			}
+		}
+    set {
+			switch axis {
+			case .vertical: y = newValue
+			case .horizontal: x = newValue
+			}
+		}
+  }
+}
+extension CoreFoundation::CGRect {
+  @inlinable public init(minX: CoreFoundation::CGFloat, minY: CoreFoundation::CGFloat, maxX: CoreFoundation::CGFloat, maxY: CoreFoundation::CGFloat) {
+		self.init(
+			x: minX,
+			y: minY,
+			width: maxX - minX,
+			height: maxY - minY
+		)
+	}
+  @inlinable public subscript(max axis: SwiftUICore::Axis) -> CoreFoundation::CGFloat {
+    get {
+		switch axis {
+		case .vertical: return maxY
+		case .horizontal: return maxX
+		}
+	}
+  }
+  @inlinable public subscript(min axis: SwiftUICore::Axis) -> CoreFoundation::CGFloat {
+    get {
+		switch axis {
+		case .vertical: return minY
+		case .horizontal: return minX
+		}
+	}
+  }
+  @inlinable public subscript(mid axis: SwiftUICore::Axis) -> CoreFoundation::CGFloat {
+    get {
+		switch axis {
+		case .vertical: return midY
+		case .horizontal: return midX
+		}
+	}
+  }
+}
+extension CoreFoundation::CGSize {
+  @inlinable public init(_ point: CoreFoundation::CGPoint) {
+		self.init(width: point.x, height: point.y)
+	}
+  @inlinable public static func square(_ length: CoreFoundation::CGFloat) -> CoreFoundation::CGSize {
+		self.init(width: length, height: length)
+	}
+  @inlinable public var center: CoreFoundation::CGPoint {
+    get {
+		CGPoint(x: width / 2, y: height / 2)
+	}
+  }
+  @inlinable public subscript(axis: SwiftUICore::Axis) -> CoreFoundation::CGFloat {
+    get {
+			switch axis {
+			case .vertical: return height
+			case .horizontal: return width
+			}
+		}
+    set {
+			switch axis {
+			case .vertical: height = newValue
+			case .horizontal: width = newValue
+			}
+		}
+  }
+}
+@_Concurrency::MainActor @preconcurrency public struct CocoaComponent<Representable> : SwiftUICore::View where Representable : SwiftUICore::View {
+  @_Concurrency::MainActor @preconcurrency public var body: some SwiftUICore::View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s15CocoaExtensions0A9ComponentV4bodyQrvp", 0) __<Representable>
+}
+@_Concurrency::MainActor @preconcurrency public struct _CocoaViewRepresentable<Content, Coordinator> : CocoaAliases::CocoaViewRepresentable where Content : AppKit::NSView {
+  @_Concurrency::MainActor @preconcurrency public func makeCocoaView(context: CocoaExtensions::_CocoaViewRepresentable<Content, Coordinator>.SwiftUI::Context) -> Content
+  @_Concurrency::MainActor @preconcurrency public func updateCocoaView(_ content: Content, context: CocoaExtensions::_CocoaViewRepresentable<Content, Coordinator>.SwiftUI::Context)
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public func sizeThatFits(_ proposal: SwiftUICore::ProposedViewSize, cocoaView content: Content, context: CocoaExtensions::_CocoaViewRepresentable<Content, Coordinator>.SwiftUI::Context) -> CoreFoundation::CGSize?
+  @_Concurrency::MainActor @preconcurrency public func makeCoordinator() -> Coordinator
+  public typealias Body = Swift::Never
+  public typealias CocoaViewType = Content
+  public typealias NSViewType = Content
+}
+@_Concurrency::MainActor @preconcurrency public struct _CocoaViewControllerRepresentable<Content, Coordinator> : CocoaAliases::CocoaViewControllerRepresentable where Content : AppKit::NSViewController {
+  @_Concurrency::MainActor @preconcurrency public func makeCocoaViewController(context: CocoaExtensions::_CocoaViewControllerRepresentable<Content, Coordinator>.SwiftUI::Context) -> Content
+  @_Concurrency::MainActor @preconcurrency public func updateCocoaViewController(_ content: Content, context: CocoaExtensions::_CocoaViewControllerRepresentable<Content, Coordinator>.SwiftUI::Context)
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public func sizeThatFits(_ proposal: SwiftUICore::ProposedViewSize, cocoaViewController content: Content, context: CocoaExtensions::_CocoaViewControllerRepresentable<Content, Coordinator>.SwiftUI::Context) -> CoreFoundation::CGSize?
+  @_Concurrency::MainActor @preconcurrency public func makeCoordinator() -> Coordinator
+  public typealias Body = Swift::Never
+  public typealias CocoaViewControllerType = Content
+  public typealias NSViewControllerType = Content
+}
+extension CocoaExtensions::CocoaComponent {
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(content: @escaping (Representable.Context) -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, Coordinator>, Content : AppKit::NSView
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(content: @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, Coordinator>, Content : AppKit::NSView
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(_ content: @autoclosure @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, Coordinator>, Content : AppKit::NSView
+  @_Concurrency::MainActor @preconcurrency public init<Content>(content: @escaping (Representable.Context) -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, ()>, Content : AppKit::NSView
+  @_Concurrency::MainActor @preconcurrency public init<Content>(content: @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, ()>, Content : AppKit::NSView
+  @_Concurrency::MainActor @preconcurrency public init<Content>(_ content: @autoclosure @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, ()>, Content : AppKit::NSView
+}
+extension CocoaExtensions::CocoaComponent {
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(content: @escaping (Representable.Context) -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, Coordinator>, Content : AppKit::NSView
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(content: @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, Coordinator>, Content : AppKit::NSView
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(_ content: @autoclosure @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, Coordinator>, Content : AppKit::NSView
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content>(content: @escaping (Representable.Context) -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, ()>, Content : AppKit::NSView
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content>(content: @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, ()>, Content : AppKit::NSView
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content>(_ content: @autoclosure @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?) where Representable == CocoaExtensions::_CocoaViewRepresentable<Content, ()>, Content : AppKit::NSView
+}
+extension CocoaExtensions::CocoaComponent {
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(content: @escaping (Representable.Context) -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, Coordinator>, Content : AppKit::NSViewController
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(content: @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, ()>, Content : AppKit::NSViewController
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(_ content: @autoclosure @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, Coordinator>, Content : AppKit::NSViewController
+  @_Concurrency::MainActor @preconcurrency public init<Content>(content: @escaping (Representable.Context) -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, ()>, Content : AppKit::NSViewController
+  @_Concurrency::MainActor @preconcurrency public init<Content>(_ content: @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, ()>, Content : AppKit::NSViewController
+  @_Concurrency::MainActor @preconcurrency public init<Content>(_ content: @autoclosure @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, ()>, Content : AppKit::NSViewController
+}
+extension CocoaExtensions::CocoaComponent {
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(content: @escaping (Representable.Context) -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, Coordinator>, Content : AppKit::NSViewController
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(content: @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, ()>, Content : AppKit::NSViewController
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content, Coordinator>(_ content: @autoclosure @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?, coordinator: @escaping () -> Coordinator) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, Coordinator>, Content : AppKit::NSViewController
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content>(content: @escaping (Representable.Context) -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, ()>, Content : AppKit::NSViewController
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content>(_ content: @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, ()>, Content : AppKit::NSViewController
+  @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
+  @_Concurrency::MainActor @preconcurrency public init<Content>(_ content: @autoclosure @escaping () -> Content, update: @escaping (Content, Representable.Context) -> Swift::Void = { _, _ in }, sizeThatFits: @escaping (SwiftUICore::ProposedViewSize, Content, Representable.Context) -> CoreFoundation::CGSize?) where Representable == CocoaExtensions::_CocoaViewControllerRepresentable<Content, ()>, Content : AppKit::NSViewController
+}
+extension CocoaExtensions::CustomToolbar.CocoaExtensions::Delegate : Swift::Sendable {}
+extension CocoaExtensions::CocoaComponent : Swift::Sendable {}
+extension CocoaExtensions::_CocoaViewRepresentable : Swift::Sendable {}
+extension CocoaExtensions::_CocoaViewControllerRepresentable : Swift::Sendable {}
