@@ -1,0 +1,177 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3.3 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
+// swift-module-flags: -target arm64-apple-watchos6.0-simulator -enable-objc-interop -swift-version 6 -O -module-name CocoaExtensions -package-name swift_cocoa_extensions
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
+import AssociatedObjects
+import CocoaAliases
+import Combine
+import CoreGraphics
+@_exported import DeclarativeConfiguration
+import Foundation
+@_exported import FoundationExtensions
+import Swift
+import SwiftUI
+@_exported import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc @_inheritsConvenienceInitializers public class PrefetchingDataSource : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  @_hasInitialValue final private let prefetchRequestSubject: Combine.PassthroughSubject<[Foundation.IndexPath], Swift.Never>
+  public var prefetchRequestPublisher: Combine.AnyPublisher<[Foundation.IndexPath], Swift.Never> {
+    get
+  }
+  @_hasInitialValue final private let cancelPrefetchRequestSubject: Combine.PassthroughSubject<[Foundation.IndexPath], Swift.Never>
+  public var cancelPrefetchRequestPublisher: Combine.AnyPublisher<[Foundation.IndexPath], Swift.Never> {
+    get
+  }
+  @objc deinit
+}
+@available(*, deprecated, renamed: "CustomCocoaObjectProtocol")
+public typealias CustomNSObjectProtocol = CocoaExtensions.CustomCocoaObjectProtocol
+@_Concurrency.MainActor public protocol CustomCocoaObjectProtocol : ObjectiveC.NSObject {
+  @_Concurrency.MainActor func _init()
+}
+public protocol SupplimentaryItemKindProvidingType {
+  static var supplimentaryItemKind: Swift.String { get }
+}
+public protocol ReuseIDProvidingType {
+  static var reuseID: Swift.String { get }
+}
+extension CocoaExtensions.ReuseIDProvidingType {
+  public static var reuseID: Swift.String {
+    get
+  }
+}
+extension SwiftUICore.Axis.Set {
+  @inlinable public init(_ axes: SwiftUICore.Axis...) {
+		self = []
+
+		if axes.contains(.vertical) {
+			insert(.vertical)
+		}
+
+		if axes.contains(.horizontal) {
+			insert(.horizontal)
+		}
+	}
+}
+extension SwiftUICore.Axis {
+  @inlinable public var orthoganal: SwiftUICore.Axis {
+    get {
+		switch self {
+		case .horizontal: .vertical
+		case .vertical: .horizontal
+		}
+	}
+  }
+}
+extension CoreGraphics.CGPath {
+  @inlinable public static func create(_ build: (CoreGraphics.CGMutablePath) -> Swift.Void) -> CoreGraphics.CGMutablePath {
+		let path = CGMutablePath()
+		build(path)
+		return path
+	}
+  @inlinable public static func line(from start: CoreFoundation.CGPoint, to end: CoreFoundation.CGPoint) -> CoreGraphics.CGPath {
+		.create { $0.addLine(from: start, to: end) }
+	}
+  @inlinable public static func combine(_ paths: [CoreGraphics.CGPath]) -> CoreGraphics.CGPath {
+		return .create { path in
+			for p in paths {
+				path.addPath(p)
+			}
+		}
+	}
+}
+extension CoreGraphics.CGMutablePath {
+  @inlinable public func addLine(from start: CoreFoundation.CGPoint, to end: CoreFoundation.CGPoint) {
+		move(to: start)
+		addLine(to: end)
+	}
+}
+extension CoreFoundation.CGPoint {
+  @inlinable public init(_ offset: CoreFoundation.CGSize) {
+		self.init(x: offset.width, y: offset.height)
+	}
+  @inlinable public subscript(axis: SwiftUICore.Axis) -> CoreFoundation.CGFloat {
+    get {
+			switch axis {
+			case .vertical: return y
+			case .horizontal: return x
+			}
+		}
+    set {
+			switch axis {
+			case .vertical: y = newValue
+			case .horizontal: x = newValue
+			}
+		}
+  }
+}
+extension CoreFoundation.CGRect {
+  @inlinable public init(minX: CoreFoundation.CGFloat, minY: CoreFoundation.CGFloat, maxX: CoreFoundation.CGFloat, maxY: CoreFoundation.CGFloat) {
+		self.init(
+			x: minX,
+			y: minY,
+			width: maxX - minX,
+			height: maxY - minY
+		)
+	}
+  @inlinable public subscript(max axis: SwiftUICore.Axis) -> CoreFoundation.CGFloat {
+    get {
+		switch axis {
+		case .vertical: return maxY
+		case .horizontal: return maxX
+		}
+	}
+  }
+  @inlinable public subscript(min axis: SwiftUICore.Axis) -> CoreFoundation.CGFloat {
+    get {
+		switch axis {
+		case .vertical: return minY
+		case .horizontal: return minX
+		}
+	}
+  }
+  @inlinable public subscript(mid axis: SwiftUICore.Axis) -> CoreFoundation.CGFloat {
+    get {
+		switch axis {
+		case .vertical: return midY
+		case .horizontal: return midX
+		}
+	}
+  }
+}
+extension CoreFoundation.CGSize {
+  @inlinable public init(_ point: CoreFoundation.CGPoint) {
+		self.init(width: point.x, height: point.y)
+	}
+  @inlinable public static func square(_ length: CoreFoundation.CGFloat) -> CoreFoundation.CGSize {
+		self.init(width: length, height: length)
+	}
+  @inlinable public var center: CoreFoundation.CGPoint {
+    get {
+		CGPoint(x: width / 2, y: height / 2)
+	}
+  }
+  @inlinable public subscript(axis: SwiftUICore.Axis) -> CoreFoundation.CGFloat {
+    get {
+			switch axis {
+			case .vertical: return height
+			case .horizontal: return width
+			}
+		}
+    set {
+			switch axis {
+			case .vertical: height = newValue
+			case .horizontal: width = newValue
+			}
+		}
+  }
+}
+@available(iOS 17.0, tvOS 17.0, *)
+@available(watchOS, unavailable)
+extension UIKit.UITraitChangeObservable where Self : ObjectiveC.NSObject, Self : UIKit.UITraitEnvironment {
+  @discardableResult
+  @_Concurrency.MainActor public func observeTrait<Trait>(_ trait: Trait.Type, handler: ((Self, Trait.Value) -> Swift.Void)?) -> (any UIKit.UITraitChangeRegistration)? where Trait : UIKit.UITraitDefinition
+}
