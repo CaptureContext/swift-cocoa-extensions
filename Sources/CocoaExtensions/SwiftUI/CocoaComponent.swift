@@ -1,6 +1,7 @@
 #if canImport(SwiftUI) && !os(watchOS)
 import SwiftUI
 import CocoaAliases
+import PerceptionCore
 
 public struct CocoaComponent<Representable: View>: View {
 	@_spi(Internals)
@@ -42,11 +43,15 @@ public struct _CocoaViewRepresentable<Content: CocoaView, Coordinator>: CocoaVie
 	}
 
 	public func makeCocoaView(context: Context) -> Content {
-		content(context)
+		_PerceptionLocals.$skipPerceptionChecking.withValue(true) {
+			content(context)
+		}
 	}
 
 	public func updateCocoaView(_ content: Content, context: Context) {
-		update(content, context)
+		_PerceptionLocals.$skipPerceptionChecking.withValue(true) {
+			update(content, context)
+		}
 	}
 
 	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
@@ -55,15 +60,19 @@ public struct _CocoaViewRepresentable<Content: CocoaView, Coordinator>: CocoaVie
 		cocoaView content: Content,
 		context: Context
 	) -> CGSize? {
-		sizeThatFits(
-			.init(proposal),
-			content,
-			context
-		)
+		_PerceptionLocals.$skipPerceptionChecking.withValue(true) {
+			sizeThatFits(
+				.init(proposal),
+				content,
+				context
+			)
+		}
 	}
 
 	public func makeCoordinator() -> Coordinator {
-		coordinator()
+		_PerceptionLocals.$skipPerceptionChecking.withValue(true) {
+			coordinator()
+		}
 	}
 }
 
@@ -94,11 +103,15 @@ public struct _CocoaViewControllerRepresentable<Content: CocoaViewController, Co
 	}
 
 	public func makeCocoaViewController(context: Context) -> Content {
-		content(context)
+		_PerceptionLocals.$skipPerceptionChecking.withValue(true) {
+			content(context)
+		}
 	}
 
 	public func updateCocoaViewController(_ content: Content, context: Context) {
-		update(content, context)
+		_PerceptionLocals.$skipPerceptionChecking.withValue(true) {
+			update(content, context)
+		}
 	}
 
 	@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
@@ -107,15 +120,19 @@ public struct _CocoaViewControllerRepresentable<Content: CocoaViewController, Co
 		cocoaViewController content: Content,
 		context: Context
 	) -> CGSize? {
-		sizeThatFits(
-			.init(proposal),
-			content,
-			context
-		)
+		_PerceptionLocals.$skipPerceptionChecking.withValue(true) {
+			sizeThatFits(
+				.init(proposal),
+				content,
+				context
+			)
+		}
 	}
 
 	public func makeCoordinator() -> Coordinator {
-		coordinator()
+		_PerceptionLocals.$skipPerceptionChecking.withValue(true) {
+			coordinator()
+		}
 	}
 }
 

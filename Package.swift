@@ -40,6 +40,10 @@ let package = Package(
 			.upToNextMajor(from: "1.1.1")
 		),
 		.package(
+			url: "https://github.com/pointfreeco/swift-perception.git",
+			"1.3.4"..<"3.0.0"
+		),
+		.package(
 			url: "https://github.com/stackotter/swift-macro-toolkit.git",
 			"0.6.0"..<"0.10.0"
 		),
@@ -67,6 +71,10 @@ let package = Package(
 				.product(
 					name: "FoundationExtensions",
 					package: "swift-foundation-extensions"
+				),
+				.product(
+					name: "PerceptionCore",
+					package: "swift-perception"
 				),
 				.product(
 					name: "IdentifiedCollections",
