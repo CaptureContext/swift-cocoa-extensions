@@ -40,8 +40,8 @@ let package = Package(
 			.upToNextMajor(from: "1.1.1")
 		),
 		.package(
-			url: "https://github.com/pointfreeco/swift-perception.git",
-			"2.0.12"..<"3.0.0"
+			url: "https://github.com/maximkrouk/swift-perception.git",
+			exact: "2.0.13"
 		),
 		.package(
 			url: "https://github.com/maximkrouk/swift-macro-toolkit.git",
