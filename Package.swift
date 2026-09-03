@@ -33,7 +33,7 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-foundation-extensions.git",
-			.upToNextMinor(from: "0.9.0")
+			.upToNextMinor(from: "0.10.0")
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-identified-collections.git",
@@ -77,20 +77,26 @@ let package = Package(
 					package: "swift-foundation-extensions"
 				),
 				.product(
+					name: "IdentifiedCollections",
+					package: "swift-identified-collections"
+				),
+				.product(
 					name: "PerceptionCore",
 					package: "swift-perception"
 				),
-				.product(
-					name: "IdentifiedCollections",
-					package: "swift-identified-collections"
-				)
 			]
 		),
 		.target(
 			name: "CocoaExtensionsMacros",
 			dependencies: [
-				.target(name: "CocoaExtensions"),
-				.target(name: "CocoaExtensionsMacrosPlugin"),
+				.target(
+					name: "CocoaExtensions",
+					condition: nil
+				),
+				.target(
+					name: "CocoaExtensionsMacrosPlugin",
+					condition: nil
+				),
 				.product(
 					name: "FoundationExtensionsMacros",
 					package: "swift-foundation-extensions"
@@ -104,35 +110,77 @@ let package = Package(
 					name: "MacroToolkit",
 					package: "swift-macro-toolkit"
 				),
-				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
-				.product(name: "SwiftDiagnostics", package: "swift-syntax"),
-				.product(name: "SwiftSyntax", package: "swift-syntax"),
-				.product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
-				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
+				.product(
+					name: "SwiftCompilerPlugin",
+					package: "swift-syntax"
+				),
+				.product(
+					name: "SwiftDiagnostics",
+					package: "swift-syntax"
+				),
+				.product(
+					name: "SwiftSyntax",
+					package: "swift-syntax"
+				),
+				.product(
+					name: "SwiftSyntaxBuilder",
+					package: "swift-syntax"
+				),
+				.product(
+					name: "SwiftSyntaxMacros",
+					package: "swift-syntax"
+				),
 			]
 		),
 		.testTarget(
 			name: "CocoaExtensionsTests",
 			dependencies: [
-				.target(name: "CocoaExtensions"),
-				.product(name: "IssueReportingTestSupport", package: "swift-issue-reporting"),
+				.target(
+					name: "CocoaExtensions",
+					condition: nil
+				),
+				.product(
+					name: "IssueReportingTestSupport",
+					package: "swift-issue-reporting"
+				),
 			]
 		),
 		.testTarget(
 			name: "CocoaExtensionsMacrosTests",
 			dependencies: [
-				.target(name: "CocoaExtensionsMacros"),
-				.product(name: "IssueReportingTestSupport", package: "swift-issue-reporting"),
+				.target(
+					name: "CocoaExtensionsMacros",
+					condition: nil
+				),
+				.product(
+					name: "IssueReportingTestSupport",
+					package: "swift-issue-reporting"
+				),
 			]
 		),
 		.testTarget(
 			name: "CocoaExtensionsMacrosPluginTests",
 			dependencies: [
-				.target(name: "CocoaExtensionsMacrosPlugin"),
-				.product(name: "MacroTesting", package: "swift-macro-testing"),
-				.product(name: "IssueReportingTestSupport", package: "swift-issue-reporting"),
-				.product(name: "SwiftSyntax", package: "swift-syntax"),
-				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
+				.target(
+					name: "CocoaExtensionsMacrosPlugin",
+					condition: nil
+				),
+				.product(
+					name: "MacroTesting",
+					package: "swift-macro-testing"
+				),
+				.product(
+					name: "IssueReportingTestSupport",
+					package: "swift-issue-reporting"
+				),
+				.product(
+					name: "SwiftSyntax",
+					package: "swift-syntax"
+				),
+				.product(
+					name: "SwiftSyntaxMacros",
+					package: "swift-syntax"
+				),
 			]
 		),
 	],
