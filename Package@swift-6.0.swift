@@ -41,7 +41,7 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/maximkrouk/swift-perception.git",
-			branch: "cctx/myo-local"
+			exact: "2.0.12"
 		),
 		.package(
 			url: "https://github.com/stackotter/swift-macro-toolkit.git",
