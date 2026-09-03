@@ -49,7 +49,7 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/swiftlang/swift-syntax.git",
-			exact: "603.0.1"
+			"509.0.0"..<"605.0.0"
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-macro-testing.git",
