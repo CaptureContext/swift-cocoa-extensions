@@ -41,11 +41,11 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/stackotter/swift-macro-toolkit.git",
-			.exact("0.9.0")
+			exact: "0.9.0"
 		),
 		.package(
 			url: "https://github.com/swiftlang/swift-syntax.git",
-			.exact("603.0.1")
+			exact: "603.0.1"
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-macro-testing.git",
