@@ -40,8 +40,12 @@ let package = Package(
 			.upToNextMajor(from: "1.1.1")
 		),
 		.package(
-			url: "https://github.com/maximkrouk/swift-macro-toolkit.git",
-			"0.9.1"..<"0.10.0"
+			url: "https://github.com/stackotter/swift-macro-toolkit.git",
+			"0.9.0"..<"0.10.0"
+		),
+		.package(
+			url: "https://github.com/swiftlang/swift-syntax.git",
+			"600.0.0"..<"604.0.0"
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-macro-testing.git",
@@ -92,6 +96,11 @@ let package = Package(
 					name: "MacroToolkit",
 					package: "swift-macro-toolkit"
 				),
+				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
+				.product(name: "SwiftDiagnostics", package: "swift-syntax"),
+				.product(name: "SwiftSyntax", package: "swift-syntax"),
+				.product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
+				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
 			]
 		),
 		.testTarget(
@@ -114,6 +123,8 @@ let package = Package(
 				.target(name: "CocoaExtensionsMacrosPlugin"),
 				.product(name: "MacroTesting", package: "swift-macro-testing"),
 				.product(name: "IssueReportingTestSupport", package: "swift-issue-reporting"),
+				.product(name: "SwiftSyntax", package: "swift-syntax"),
+				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
 			]
 		),
 	],
