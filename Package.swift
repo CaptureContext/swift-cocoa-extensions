@@ -33,7 +33,7 @@ let package = Package(
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-foundation-extensions.git",
-			.upToNextMinor(from: "0.8.0")
+			.upToNextMinor(from: "0.9.0")
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-identified-collections.git",
