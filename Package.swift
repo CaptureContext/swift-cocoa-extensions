@@ -25,15 +25,15 @@ let package = Package(
 	dependencies: [
 		.package(
 			url: "https://github.com/capturecontext/cocoa-aliases.git",
-			.upToNextMajor(from: "3.5.2")
+			.upToNextMajor(from: "3.5.3")
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-declarative-configuration.git",
-			.upToNextMinor(from: "0.7.0")
+			.upToNextMinor(from: "0.7.1")
 		),
 		.package(
 			url: "https://github.com/capturecontext/swift-foundation-extensions.git",
-			.upToNextMinor(from: "0.10.0")
+			.upToNextMinor(from: "0.10.1")
 		),
 		.package(
 			url: "https://github.com/pointfreeco/swift-identified-collections.git",
@@ -44,8 +44,8 @@ let package = Package(
 			"2.0.12"..<"3.0.0"
 		),
 		.package(
-			url: "https://github.com/stackotter/swift-macro-toolkit.git",
-			exact: "0.9.0"
+			url: "https://github.com/maximkrouk/swift-macro-toolkit.git",
+			exact: "0.9.1"
 		),
 		.package(
 			url: "https://github.com/swiftlang/swift-syntax.git",
