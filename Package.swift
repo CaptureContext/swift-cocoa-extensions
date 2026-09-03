@@ -44,8 +44,8 @@ let package = Package(
 			branch: "cctx/myo-local"
 		),
 		.package(
-			url: "https://github.com/maximkrouk/swift-macro-toolkit.git",
-			branch: "cctx/myo-local"
+			url: "https://github.com/stackotter/swift-macro-toolkit.git",
+			exact: "0.9.0"
 		),
 		.package(
 			url: "https://github.com/swiftlang/swift-syntax.git",
